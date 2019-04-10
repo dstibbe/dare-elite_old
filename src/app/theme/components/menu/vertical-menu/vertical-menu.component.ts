@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppSettings } from '../../../../app.settings';
 import { Settings } from '../../../../app.settings.model';
@@ -11,7 +11,7 @@ import { MenuService } from '../menu.service';
   encapsulation: ViewEncapsulation.None,
   providers: [ MenuService ]
 })
-export class VerticalMenuComponent implements OnInit {
+export class VerticalMenuComponent implements OnInit, AfterViewInit {
   @Input('menuItems') menuItems;
   @Input('menuParentId') menuParentId;
   parentMenu:Array<any>;
