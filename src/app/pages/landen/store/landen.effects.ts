@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { LandenService } from '../services/landen.service';
 import { LandenActionTypes } from './landen.actions';
 import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
-import { Land, LandSettings } from '../models/land.model';
+import { Land } from '../models/land.model';
 
 import * as fromLanden from './../store/landen.actions';
 import { of } from 'rxjs';
@@ -28,7 +28,7 @@ export class LandenEffects {
             const land: Land = res.payload.val();
             console.log('from effects land:', land);
             return {
-              key: key,
+              key,
               id: land.id,
               code: land.code,
               naam: land.naam,

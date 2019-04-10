@@ -4,23 +4,24 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Land, LandSettings} from '../models/land.model';
 
 @Component({
-  selector: 'app-land-dialog',
+  selector: 'dare-land-dialog',
   templateUrl: './land-dialog.component.html',
   styleUrls: ['./land-dialog.component.scss']
 })
 export class LandDialogComponent implements OnInit {
 
-  public form:FormGroup;
+  public form: FormGroup;
   landen: Land[] | null;
 
-  constructor(public dialogRef: MatDialogRef<LandDialogComponent>, @Inject(MAT_DIALOG_DATA) public land: Land, public fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<LandDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Land, public fb: FormBuilder) {
 
   }
 
   ngOnInit() {
-
+    console.log('Oninit dialog', this.data);
     this.form = this.fb.group({
       id: null,
+      key: null,
       code: [null],
       naam: [null],
       landSettings: this.fb.group({
@@ -28,18 +29,17 @@ export class LandDialogComponent implements OnInit {
         isDeleted: [false],
         registrationDate: [null],
         joinedDate: [null],
-      }), 
+      }),
     });
-    
-    if(this.land){
-      this.form.setValue(this.land);
-      console.log('setValue from dialog', this.land);
-    } 
-    else{
+
+    if (this.data) {
+      this.form.patchValue(this.data);
+      console.log('setValue from dialog', this.data);
+    } else {
       console.log('new land from dialog');
-      this.land = new Land();
-      this.land.landSettings = new LandSettings();
-    } 
+      this.data = new Land();
+      this.data.landSettings = new LandSettings();
+    }
   }
 
   close(): void {

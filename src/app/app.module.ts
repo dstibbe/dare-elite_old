@@ -11,7 +11,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
-  suppressScrollX: true               
+  suppressScrollX: true
 };
 import { CalendarModule, DateAdapter  } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -51,13 +51,13 @@ import { AuthModule } from './authentication/auth.module';
 @NgModule({
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
+    BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
-    }), 
-    PerfectScrollbarModule, 
+    }),
+    PerfectScrollbarModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -94,7 +94,7 @@ import { AuthModule } from './authentication/auth.module';
   entryComponents:[
     VerticalMenuComponent
   ],
-  providers: [ 
+  providers: [
     AppSettings,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

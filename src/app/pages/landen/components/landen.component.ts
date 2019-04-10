@@ -13,29 +13,31 @@ import { map } from 'rxjs/operators';
 import { LandDialogComponent } from '../dialog/land-dialog.component';
 
 @Component({
-  selector: 'app-landen',
+  selector: 'dare-landen',
   templateUrl: './landen.component.html',
   styleUrls: ['./landen.component.scss']
 })
 export class LandenComponent implements OnInit, OnDestroy {
 
   isLoading$: Observable<boolean>;
+  landen: Land[] | null;
+
   landenSub: Subscription;
   lastLandIndex: number;
 
-  landen: Land[] | null;
   settings: Settings;
   searchText: string;
 
-  constructor(public appSettings:AppSettings, public dialog: MatDialog, private store: Store<AppState>, private afAuth: AngularFireAuth) {
+  constructor(public appSettings: AppSettings, public dialog: MatDialog, private store: Store<AppState>, private afAuth: AngularFireAuth) {
 
-    this.settings = this.appSettings.settings; 
+    this.settings = this.appSettings.settings;
 
    }
 
   ngOnInit() {
 
     this.isLoading$ = this.store.select(getIsLoading);
+
     this.landenSub = this.store.select(getLanden).pipe(
       map( (landen: Land[]) => {
         if (this.user && !landen) {
@@ -54,8 +56,9 @@ export class LandenComponent implements OnInit, OnDestroy {
 
       this.landen = landen;
       console.log('after init landen', this.landen);
+      console.log('after init landenSub', this.landenSub);
     });
-  
+
 
   }
 
@@ -69,15 +72,16 @@ export class LandenComponent implements OnInit, OnDestroy {
     }
   }
 
-  public openLandDialog(land){
-    let dialogRef = this.dialog.open(LandDialogComponent, {
+  public openLandDialog(land) {
+    const dialogRef = this.dialog.open(LandDialogComponent, {
         data: land
     });
 
+    // tslint:disable-next-line:no-shadowed-variable
     dialogRef.afterClosed().subscribe(land => {
-        if(land){
+        if (land) {
           console.log('land na dialog', land);
-            (land.id) ? this.store.dispatch(new fromLanden.LandenEdited({ land: land })) : this.store.dispatch(new fromLanden.LandenAdded({ land: land }));
+          (land.key) ? this.store.dispatch(new fromLanden.LandenEdited({ land })) : this.store.dispatch(new fromLanden.LandenAdded({ land }));
         }
     });
 }

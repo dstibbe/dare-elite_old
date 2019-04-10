@@ -8,7 +8,7 @@ import { getError } from '../../store/auth.selectors';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
+  selector: 'dare-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
