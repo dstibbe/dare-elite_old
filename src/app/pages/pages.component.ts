@@ -3,6 +3,12 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
 import { MenuService } from '../theme/components/menu/menu.service';
+import { Observable } from 'rxjs';
+import { User } from '../authentication/models/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { getUser, getIsLoggedIn, getIsLoading, getIsAdmin } from '../authentication/store/auth.selectors';
+import * as fromAuth from '../authentication/store/auth.actions';
 
 @Component({
   selector: 'app-pages',
@@ -13,6 +19,10 @@ import { MenuService } from '../theme/components/menu/menu.service';
 export class PagesComponent implements OnInit, AfterViewInit { 
 
   @ViewChild('sidenav') sidenav:any;
+  user$: Observable<User | null>;
+  isLoggedIn$: Observable<boolean>;
+  isLoading$: Observable<boolean>;
+  isAdmin$: Observable<boolean>;
   public settings:Settings;
   public menus = ['vertical', 'horizontal'];
   public menuOption:string;
@@ -25,7 +35,8 @@ export class PagesComponent implements OnInit, AfterViewInit {
   private defaultMenu:string; //declared for return default menu when window resized 
   public scrolledContent:any;
 
-  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService){        
+
+  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, private store: Store<AppState>){        
     this.settings = this.appSettings.settings;
   }
   
@@ -35,9 +46,17 @@ export class PagesComponent implements OnInit, AfterViewInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
     }
+    this.user$ = this.store.select(getUser);
+    this.isLoggedIn$ = this.store.select(getIsLoggedIn);
+    this.isLoading$ = this.store.select(getIsLoading);
+    this.isAdmin$ = this.store.select(getIsAdmin);
     this.menuOption = this.settings.menu; 
     this.menuTypeOption = this.settings.menuType; 
     this.defaultMenu = this.settings.menu;
+  }
+
+  onLogout(user: User) {
+    this.store.dispatch(new fromAuth.LogoutRequested( { user }));
   }
 
   ngAfterViewInit(){

@@ -1,0 +1,167 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="flex-p">
+    <div fxLayout="row">
+        <mat-button-toggle-group #controls="matButtonToggleGroup">            
+            <mat-button-toggle value="add" (click)="openLandDialog(null)">
+                <mat-icon>person_add</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="search">
+                <mat-icon>search</mat-icon>
+            </mat-button-toggle>           
+        </mat-button-toggle-group>            
+    </div>
+    <form class="land-search" [class.show]="controls.value == 'search'">
+        <mat-form-field class="land-search-input">
+            <input matInput placeholder="Search land by name..." [(ngModel)]="searchText" name="search">
+        </mat-form-field>
+    </form>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-button-toggle-group #viewType="matButtonToggleGroup">            
+            <mat-button-toggle value="grid" checked="true">
+                <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="list">
+                <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>           
+        </mat-button-toggle-group>
+    </div>
+</div>
+
+<div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">    
+    <div *ngFor="let land of landen" fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p"> 
+        <mat-card class="p-0">  
+            <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                <h3 *ngIf="!land.landSettings.isDeleted" class="land-name">{{land.code}} {{land.naam}}</h3> 
+                <h3 *ngIf="land.landSettings.isDeleted" class="land-name">Land blocked</h3>
+                <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </div>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <span (mouseleave)="menuTrigger.closeMenu()">
+                    <button mat-menu-item (click)="openLandDialog(land)">
+                        <mat-icon>mode_edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteLand(land);">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </span>
+            </mat-menu>
+            <div class="land-content" fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+                    <!-- <div class="land-img">
+                        <img *ngIf="land.profile.image" [src]="land.profile.image" class="transition-2" [class.blocked]="land.landSettings.isDeleted">
+                        <img *ngIf="!land.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="land.landSettings.isDeleted">  
+                        <mat-icon *ngIf="land.landSettings.isDeleted" class="warn-color">block</mat-icon>
+                    </div>                                             -->
+                    <div class="land-social">
+                        <mat-slide-toggle color="primary" [checked]="land.landSettings.isDeleted" (change)="land.landSettings.isDeleted = !land.landSettings.isDeleted"></mat-slide-toggle>
+                    </div>
+                </div>
+                <div fxFlex="70" fxLayout="column" class="land-details transition-2" [class.blocked]="land.landSettings.isDeleted">
+                    <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="muted-text">card_membership</mat-icon>
+                        <span>{{land.code}}</span>
+                    </p>
+                    <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="muted-text">mail_outline</mat-icon>
+                        <span>{{land.naam}}</span>
+                    <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="muted-text">date_range</mat-icon>
+                        <span>Joined {{land.landSettings.joinedDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
+                    </p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
+    <div *ngFor="let land of landen" fxFlex="100" class="flex-p"> 
+        <mat-card class="p-0">  
+            <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                <h3 *ngIf="!land.landSettings.isDeleted" class="land-name">{{land.profile.name}} {{land.profile.surname}}</h3> 
+                <h3 *ngIf="land.landSettings.isDeleted" class="land-name">Land blocked</h3>
+                <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </div>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <span (mouseleave)="menuTrigger.closeMenu()">
+                    <button mat-menu-item (click)="openLandDialog(land);">
+                        <mat-icon>mode_edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteLand(land);">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </span>
+            </mat-menu>
+            <div class="land-content" fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+                    <div class="land-img">
+                        <img *ngIf="land.profile.image" [src]="land.profile.image" class="transition-2" [class.blocked]="land.landSettings.isDeleted"> 
+                        <img *ngIf="!land.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="land.landSettings.isDeleted">  
+                        <mat-icon *ngIf="land.landSettings.isDeleted" class="warn-color">block</mat-icon>   
+                    </div>                                            
+                    <div class="land-social">
+                        <mat-slide-toggle color="primary" [checked]="land.landSettings.isDeleted" (change)="land.landSettings.isDeleted = !land.landSettings.isDeleted"></mat-slide-toggle>
+                    </div>
+                </div>
+                <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="land-details transition-2" [class.blocked]="land.landSettings.isDeleted">
+                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">business</mat-icon>
+                            <span>{{land.work.company}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">card_membership</mat-icon>
+                            <span>{{land.work.position}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">attach_money</mat-icon>
+                            <span>{{land.work.salary}}</span>
+                        </p>                                               
+                    </div>
+                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">mail_outline</mat-icon>
+                            <span>{{land.contacts.email}}</span>
+                        </p> 
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">call</mat-icon>
+                            <span>{{land.contacts.phone}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">location_on</mat-icon>
+                            <span>{{land.contacts.address}}</span>
+                        </p>                        
+                    </div>
+                    <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">event_available</mat-icon>
+                            <span>Registration {{land.landSettings.registrationDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">date_range</mat-icon>
+                            <span>Joined {{land.landSettings.joinedDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
+                        </p> 
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon *ngIf="land.landSettings.isDeleted" class="muted-text">person_outline</mat-icon>
+                            <mat-icon *ngIf="!land.landSettings.isDeleted" class="muted-text">person</mat-icon>
+                            <span>{{ (land.landSettings.isDeleted) ? 'Blocked' : 'Active' }}</span>
+                        </p>                       
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+
+<!-- <div *ngIf="$isLoading" fxLayout="column" fxLayoutAlign="center center" class="land-spinner">   
+    <mat-spinner color="primary"></mat-spinner>    
+</div> -->
+
