@@ -27,7 +27,7 @@
 </div>
 
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">    
-    <div *ngFor="let land of landen" fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p"> 
+    <div *ngFor="let land of landen" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="33.3" class="flex-p"> 
         <mat-card class="p-0">  
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
                 <h3 class="land-name">{{land.code}} - {{land.naam}}</h3> 

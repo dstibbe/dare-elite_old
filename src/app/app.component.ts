@@ -9,7 +9,7 @@ import { getUser, getIsLoggedIn, getIsLoading, getIsAdmin } from './authenticati
 import * as fromAuth from './authentication/store/auth.actions';
 
 @Component({
-  selector: 'app-root',
+  selector: 'dare-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   isAdmin$: Observable<boolean>;
   public settings: Settings;
 
-  constructor(public appSettings:AppSettings, private store: Store<AppState>){
+  constructor(public appSettings: AppSettings, private store: Store<AppState>){
       this.settings = this.appSettings.settings;
   } 
 

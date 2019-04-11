@@ -5,14 +5,15 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
+import { AuthGuard } from './authentication/guards/auth.guard';
 
 export const routes: Routes = [
-    { 
-        path: '', 
+    {
+        path: '',
         component: PagesComponent, children: [
-            { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },        
+            { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'users', loadChildren: './pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
-            { path: 'crm', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'}  }
+            { path: 'crm', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'}, canActivate: [AuthGuard]  }
         ]
     },
     { path: 'landing', loadChildren: './pages/landing/landing.module#LandingModule' },
