@@ -75,10 +75,18 @@ export class LandenComponent implements OnInit {
       })
       this.dataSource = new MatTableDataSource(array);
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.code.toLowerCase().includes(filter) ||  data.naam.toLowerCase().includes(filter);
+     };
       console.log('list of landen', array);
-      this.totalLengthRows = array.length;
+      this.totalLengthRows = array.length - 1;
       this.tabTitle = 'nieuw'
     });
+  }
+
+  applyFilter(filterValue: string) {
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
@@ -102,9 +110,15 @@ export class LandenComponent implements OnInit {
     }
   }
 
-
+  // nog niet gedaan
   onDelete(id: string) {
     this.firestore.doc('landen/' + id).delete();
+  }
+
+  resetForm() {
+    this.options.resetModel()
+    this.tabTitle = 'nieuw'
+    this.clickMe()
   }
 
 

@@ -1,3 +1,5 @@
+@import "../../../theme/styles/variables";
+
 .land-name{
     padding: 0 12px;
     font-weight: 400;
@@ -82,7 +84,7 @@
     }
 
 .data-table {
-    height: 600px;
+    height: 400px;
     overflow: auto;
 }
 
@@ -140,3 +142,27 @@ cursor: pointer;
 ::ng-deep .display-none {
     display: none !important;
   }
+
+  .search-bar{
+    form{
+        input{
+            height: 28px;
+            border: none;
+            padding: 0;
+            border-radius: 15px;
+            outline: none;
+            color: #444;
+            width: 0;
+            overflow: hidden;
+            transition: 0.3s;
+            &.show{
+               padding: 0 8px;
+               width: 250px;
+            }
+        }       
+    }
+}
+
+.search-button {
+    margin-right: 1em;
+}

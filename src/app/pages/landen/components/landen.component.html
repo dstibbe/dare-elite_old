@@ -2,14 +2,24 @@
   <div class="flex-p">
     <mat-card class="no-padding">
       <mat-card-header class="bg-primary" fxLayoutAlign="start center">
-        <mat-card-subtitle>
-          <h2 class="header-title">Landen</h2>
-        </mat-card-subtitle>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <mat-card-subtitle fxFlex>
+            <h2 class="header-title">Landen</h2>
+          </mat-card-subtitle>
+          <div fxLayout="row" fxLayoutAlign="end center" fxShow="false" fxShow.gt-xs class="search-bar">
+            <form method="get">
+              <input type="text" placeholder="Type to search..." class="mat-elevation-z3" [class.show]="toggleSearchBar" (keyup)="applyFilter($event.target.value)">
+              <button class="search-button" mat-icon-button (click)="toggleSearchBar = !toggleSearchBar" type="button">
+                <mat-icon>search</mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
       </mat-card-header>
       <mat-card-content>
         <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
           <mat-tab label="Landen lijst" class="flex-p">
-            <div class="tab-table" fxLayout="column" fxLayoutAlign="start center">
+            <div class="tab-table" >
               <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="index">
                   <th mat-header-cell *matHeaderCellDef>index</th>
@@ -27,7 +37,7 @@
                   <td mat-cell *matCellDef="let element">{{ element.code }}</td>
                   <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
-                <ng-container matColumnDef="naam" >
+                <ng-container matColumnDef="naam">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Naam
                   </th>
@@ -48,10 +58,10 @@
                   <formly-form [form]="form" [fields]="fields" [options]="options" [model]="model"></formly-form>
 
                   <div class="formly-buttons" fxLayout="row" fxLayoutAlign="space-between center">
-                    <button style="margin-right: 1em;" type="button" (click)="options.resetModel()" mat-flat-button>
+                    <button style="margin-right: 1em;" type="button" (click)="resetForm()" mat-flat-button>
                       reset
                     </button>
-                    <button color="accent" type="submit" mat-raised-button>
+                    <button color="accent" type="submit" [disabled]="!form.valid" mat-raised-button>
                       verstuur
                     </button>
                   </div>
