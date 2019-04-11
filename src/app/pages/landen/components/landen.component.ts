@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LandenService } from '../services/landen.service';
 import { Land } from '../models/land.model';
-import { tap } from 'rxjs/operators';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
@@ -15,55 +14,34 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 export class LandenComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'code', 'naam'];
-  dataSource: MatTableDataSource<any>;;
+  dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort) sort: MatSort;
   totalLengthRows: number;
   selectedRowIndex: number;
   selectedRow: any;
-
-  constructor(private service: LandenService, private firestore: AngularFirestore) {
-
-  }
-
-  ngOnInit() {
-
-    this.service.getLanden().subscribe(actionArray => {
-      let array = actionArray.map(item => {
-        return {
-          id: item.payload.doc.id,
-          ...item.payload.doc.data()
-        } as Land;
-      })
-      this.dataSource = new MatTableDataSource(array);
-      this.dataSource.sort = this.sort;
-      console.log('list of landen', array);
-      this.totalLengthRows = array.length
-
-    });
-  }
-
-  selectRow(row) {
-    this.selectedRow = row;
-    console.log('selectRow', this.selectedRow);
-}
-
-
-  onEdit(data: Land) {
-    // this.service.formData = Object.assign({}, data);
-  }
-
-  onDelete(id: string) {
-    this.firestore.doc('landen/' + id).delete();
-  }
+  selectedIndex:number=0;
 
   form = new FormGroup({});
+  options: FormlyFormOptions = {};
+  tabTitle: string;
 
-  model = [{ 
+  model = [{
+    id: null,
     code: 'NL',
-    naam: 'Nederland' 
+    naam: 'Nederland'
   }];
 
-  fields: FormlyFieldConfig[] = [{
+  fields: FormlyFieldConfig[] = [ 
+    {
+    key: 'id',
+    type: 'input',
+    className: 'display-none',
+    templateOptions: {
+      label: 'id',
+      placeholder: 'id',
+      required: false,
+    }
+  }, {
     key: 'code',
     type: 'input',
     templateOptions: {
@@ -71,8 +49,7 @@ export class LandenComponent implements OnInit {
       placeholder: 'enter land code',
       required: true,
     }
-  },
-  {
+  }, {
     key: 'naam',
     type: 'input',
     templateOptions: {
@@ -81,12 +58,73 @@ export class LandenComponent implements OnInit {
       required: true,
     }
   }
-];
+  ];
+
+  constructor(private service: LandenService, private firestore: AngularFirestore) {
+
+  }
+
+  ngOnInit() {
+
+    this.service.getLanden().subscribe(actionArray => {
+      const array = actionArray.map(item => {
+        return {
+          id: item.payload.doc.id,
+          ...item.payload.doc.data()
+        } as Land;
+      })
+      this.dataSource = new MatTableDataSource(array);
+      this.dataSource.sort = this.sort;
+      console.log('list of landen', array);
+      this.totalLengthRows = array.length;
+      this.tabTitle = 'nieuw'
+    });
+  }
+
+
+  clickMe() {
+    this.selectedIndex=0;
+    this.selectedRow = null
+  }
+
+  selectedIndexChange(val: number){
+    this.selectedIndex=val;
+  }
+
+  selectRow(row: { [key: string]: any; }) {
+    this.selectedRow = row
+    this.form.patchValue(row);
+    console.log('row', row);
+    if (row.id !== null) {
+      this.tabTitle = 'Edit'
+    }else {
+      this.tabTitle = 'nieuw'
+    }
+  }
+
+
+  onDelete(id: string) {
+    this.firestore.doc('landen/' + id).delete();
+  }
+
+
 
   submit(model) {
-    console.log(model);
+    console.log('model from submit', model);
+    let data = Object.assign({}, model);
+    console.log('data from submit', data);
+    delete data.id;
+    console.log('after del data from submit', data);
+    console.log('after del model from submit', model);
+    if (model.id == null)
+      this.firestore.collection('landen').add(data);
+    else
+      this.firestore.doc('landen/' + model.id).update(data);
+    this.options.resetModel()
+    this.clickMe()
   }
 
 }
+
 
 

@@ -82,32 +82,61 @@
     }
 
 .data-table {
-    height: 550px;
+    height: 600px;
     overflow: auto;
 }
 
 .mat-footer-cell {
     border-top: 1px solid #a5a4a4;
+    border-bottom: 0px;
   }
 
 tr.mat-footer-row {
-    font-weight: 800;
+    font-weight: 500;
   }
 
   .mat-row {
-    min-height: 65px;
- 
+    min-height: 65px; 
     &.selected {
         background: #e7e7e7;
     }
  }
 
- table {
-    width: 100%; 
-    margin-top: 2em;
+ .mat-cell:hover {
+cursor: pointer;
  }
 
- .tab-nieuw {
-     min-height: 550px;
-     margin-top: 3em;
+ table {
+    width: 100%; 
  }
+
+ .tab-table {
+    //  min-height: 600px;
+      margin-top: 3em;
+  }
+
+ .tab-nieuw {
+      min-height: 600px;
+   //  margin-top: 3em;
+ }
+
+ .tab-debug {
+    min-height: 600px;
+   margin-top: 3em;
+}
+
+ .formly-buttons {
+     margin-top: 1em;
+ }
+
+ .formly-buttons > button {
+  //  margin-left: 0.8em;
+ }
+
+ #btmFooter {
+    align-self: flex-end;
+  }
+
+::ng-deep .display-none {
+    display: none !important;
+  }

@@ -1,65 +1,99 @@
 <div fxLayout="column">
-    <div class="flex-p">
-        <mat-card class="no-padding">
-            <mat-card-header class="bg-primary" fxLayoutAlign="start center">
-                <mat-card-subtitle>
-                    <h2 class="header-title">Landen</h2>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-tab-group>
-                    <mat-tab label="Landen lijst" class="flex-p data-table">
+  <div class="flex-p">
+    <mat-card class="no-padding">
+      <mat-card-header class="bg-primary" fxLayoutAlign="start center">
+        <mat-card-subtitle>
+          <h2 class="header-title">Landen</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
+          <mat-tab label="Landen lijst" class="flex-p">
+            <div class="tab-table" fxLayout="column" fxLayoutAlign="start center">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="index">
+                  <th mat-header-cell *matHeaderCellDef>index</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ i }}
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    totaal: {{ totalLengthRows }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="code">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Code
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+                <ng-container matColumnDef="naam" >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Naam
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.naam }}</td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
 
-                        <table mat-table [dataSource]="dataSource" matSort>
-                            <ng-container matColumnDef="index">
-                                <th mat-header-cell *matHeaderCellDef> index </th>
-                                <td mat-cell *matCellDef="let element; let i = index;"> {{i}} </td>
-                                <td mat-footer-cell *matFooterCellDef></td>
-                            </ng-container>
-                            <ng-container matColumnDef="code">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Code. </th>
-                                <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-                                <td mat-footer-cell *matFooterCellDef> </td>
-                            </ng-container>
-                            <ng-container matColumnDef="naam">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naam </th>
-                                <td mat-cell *matCellDef="let element"> {{element.naam}} </td>
-                                <td mat-footer-cell *matFooterCellDef style="text-align: end">totaal aantal:
-                                    {{totalLengthRows}}</td>
-                            </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row [ngClass]="{ selected: row === selectedRow }" (click)="selectRow(row)" *matRowDef="let row; columns: displayedColumns"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+              </table>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{tabTitle}}">
+            <div class="tab-nieuw" fxLayout="row" fxLayoutAlign="center center">
+              <form [formGroup]="form" (ngSubmit)="submit(model)" autocomplete="off">
+                <mat-card class="formly-mat-card" fxLayout="column" fxLayoutAlign="center end">
+                  <formly-form [form]="form" [fields]="fields" [options]="options" [model]="model"></formly-form>
 
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                            <tr mat-row [ngClass]="{ 'selected': row === selectedRow }" (click)="selectRow(row)"
-                                *matRowDef="let row; columns: displayedColumns"></tr>
-                            <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
-                        </table>
-                    </mat-tab>
-                    <mat-tab label="Nieuw">
-                        <div class="tab-nieuw" fxLayout="column" fxLayoutAlign="start center">
-                            <form [formGroup]="form" (ngSubmit)="submit(model)">
-                                <mat-card class="formly-mat-card" fxLayout="column" fxLayoutAlign="center end">
-                                <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-                                <button color="accent" type="submit" mat-raised-button>verstuur</button>
-                            </mat-card>
-                            </form>
+                  <div class="formly-buttons" fxLayout="row" fxLayoutAlign="space-between center">
+                    <button style="margin-right: 1em;" type="button" (click)="options.resetModel()" mat-flat-button>
+                      reset
+                    </button>
+                    <button color="accent" type="submit" mat-raised-button>
+                      verstuur
+                    </button>
+                  </div>
+                </mat-card>
+              </form>
+            </div>
+          </mat-tab>
+          <mat-tab label="Historie">
+            <p class="py-1">Test</p>
+          </mat-tab>
+          <mat-tab label="Toegang beheer">
+            <p class="py-1">Test</p>
+          </mat-tab>
+          <mat-tab label="Debug">
+            <div class="tab-debug" fxLayout="row" fxLayoutAlign="center start">
+              <mat-card style="margin-right: 1em">
+                <mat-card-header>
+                  <mat-card-title>Model</mat-card-title>
+                  <mat-card-subtitle>standaard model van het data object</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <pre>
+                            {{ model | json }}
+                        </pre>
+                </mat-card-content>
+              </mat-card>
 
-                            <pre>
-                                {{model | json}}
+              <mat-card style="margin-left: 1em">
+                <mat-card-header>
+                  <mat-card-title>Form</mat-card-title>
+                  <mat-card-subtitle>Ingevulde waardes voor het data object</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <pre>
+                                {{ form.value | json }}
                             </pre>
-                            <pre>
-                                    {{form.value | json}}
-                                </pre>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="Toegang beheer">
-                        <p class="py-1">Test</p>
-                    </mat-tab>
-                    <mat-tab label="Historie">
-                        <p class="py-1">Test</p>
-                    </mat-tab>
-                </mat-tab-group>
-            </mat-card-content>
-        </mat-card>
-    </div>
-
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
