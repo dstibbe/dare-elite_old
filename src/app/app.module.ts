@@ -18,12 +18,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SharedModule } from './shared/shared.module';
 import { PipesModule } from './theme/pipes/pipes.module';
 import { routing } from './app.routing';
-
-import { reducers, metaReducers } from './reducers';
-
 import { AppComponent } from './app.component';
 import { PagesComponent } from './pages/pages.component';
-import { BlankComponent } from './pages/blank/blank.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { AppSettings } from './app.settings';
@@ -35,25 +31,20 @@ import { BreadcrumbComponent } from './theme/components/breadcrumb/breadcrumb.co
 import { FlagsMenuComponent } from './theme/components/flags-menu/flags-menu.component';
 import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.component';
 import { ApplicationsComponent } from './theme/components/applications/applications.component';
-import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './authentication/auth.module';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
@@ -64,21 +55,20 @@ import { AuthModule } from './authentication/auth.module';
     }),
     AuthModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyMaterialModule,
     PipesModule,
     routing,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireDatabaseModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([])
+    AngularFirestoreModule
   ],
   declarations: [
     AppComponent,
     PagesComponent,
-    BlankComponent,
     NotFoundComponent,
     ErrorComponent,
     SidenavComponent,
@@ -88,7 +78,6 @@ import { AuthModule } from './authentication/auth.module';
     FlagsMenuComponent,
     FullScreenComponent,
     ApplicationsComponent,
-    MessagesComponent,
     UserMenuComponent
   ],
   entryComponents:[

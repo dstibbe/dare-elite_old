@@ -1,89 +1,92 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Settings } from 'src/app/app.settings.model';
-import { AppSettings } from 'src/app/app.settings';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { LandenService } from '../services/landen.service';
 import { Land } from '../models/land.model';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { getIsLoading, getLanden } from '../store/landen.selectors';
-import * as fromLanden from './../store/landen.actions';
-import { map } from 'rxjs/operators';
-import { LandDialogComponent } from '../dialog/land-dialog.component';
+import { tap } from 'rxjs/operators';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'dare-landen',
   templateUrl: './landen.component.html',
   styleUrls: ['./landen.component.scss']
 })
-export class LandenComponent implements OnInit, OnDestroy {
+export class LandenComponent implements OnInit {
 
-  isLoading$: Observable<boolean>;
-  landen: Land[] | null;
+  displayedColumns: string[] = ['index', 'code', 'naam'];
+  dataSource: MatTableDataSource<any>;;
+  @ViewChild(MatSort) sort: MatSort;
+  totalLengthRows: number;
+  selectedRowIndex: number;
+  selectedRow: any;
 
-  landenSub: Subscription;
-  lastLandIndex: number;
+  constructor(private service: LandenService, private firestore: AngularFirestore) {
 
-  settings: Settings;
-  searchText: string;
-
-  constructor(public appSettings: AppSettings, public dialog: MatDialog, private store: Store<AppState>, private afAuth: AngularFireAuth) {
-
-    this.settings = this.appSettings.settings;
-
-   }
+  }
 
   ngOnInit() {
 
-    this.isLoading$ = this.store.select(getIsLoading);
-
-    this.landenSub = this.store.select(getLanden).pipe(
-      map( (landen: Land[]) => {
-        if (this.user && !landen) {
-          this.store.dispatch(new fromLanden.LandenQuery());
-        }
-        return landen;
+    this.service.getLanden().subscribe(actionArray => {
+      let array = actionArray.map(item => {
+        return {
+          id: item.payload.doc.id,
+          ...item.payload.doc.data()
+        } as Land;
       })
-    )
-    .subscribe( (landen: Land[]) => {
-      if (landen && landen.length !== 0) {
-        const index: number = Number(landen[landen.length - 1].id);
-        this.lastLandIndex = index;
-      } else {
-        this.lastLandIndex = 0;
-      }
+      this.dataSource = new MatTableDataSource(array);
+      this.dataSource.sort = this.sort;
+      console.log('list of landen', array);
+      this.totalLengthRows = array.length
 
-      this.landen = landen;
-      console.log('after init landen', this.landen);
-      console.log('after init landenSub', this.landenSub);
     });
-
-
   }
 
-  get user() {
-    return this.afAuth.auth.currentUser;
+  selectRow(row) {
+    this.selectedRow = row;
+    console.log('selectRow', this.selectedRow);
+}
+
+
+  onEdit(data: Land) {
+    // this.service.formData = Object.assign({}, data);
   }
 
-  ngOnDestroy() {
-    if (this.landenSub) {
-      this.landenSub.unsubscribe();
+  onDelete(id: string) {
+    this.firestore.doc('landen/' + id).delete();
+  }
+
+  form = new FormGroup({});
+
+  model = [{ 
+    code: 'NL',
+    naam: 'Nederland' 
+  }];
+
+  fields: FormlyFieldConfig[] = [{
+    key: 'code',
+    type: 'input',
+    templateOptions: {
+      label: 'code',
+      placeholder: 'enter land code',
+      required: true,
+    }
+  },
+  {
+    key: 'naam',
+    type: 'input',
+    templateOptions: {
+      label: 'naam',
+      placeholder: 'enter naam van land',
+      required: true,
     }
   }
+];
 
-  public openLandDialog(land) {
-    const dialogRef = this.dialog.open(LandDialogComponent, {
-        data: land
-    });
-
-    // tslint:disable-next-line:no-shadowed-variable
-    dialogRef.afterClosed().subscribe(land => {
-        if (land) {
-          console.log('land na dialog', land);
-          (land.key) ? this.store.dispatch(new fromLanden.LandenEdited({ land })) : this.store.dispatch(new fromLanden.LandenAdded({ land }));
-        }
-    });
-}
+  submit(model) {
+    console.log(model);
+  }
 
 }
+
+

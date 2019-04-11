@@ -1,15 +1,24 @@
 export class Land {
-    key: any;
-    id: number;
-    code: string;
-    naam: string;
-    landSettings: LandSettings;
+    id?: string;
+    code?: string;
+    naam?: string;
+    active?: boolean;
+    landHistorie?: LandHistorie;
 }
 
+export class LandHistorie{
+    isCreatedAt?: Date;
+    isCreatedBy?: string;
+    modified?: Modified;
+    deactivated?: Deactivated;
+  }
 
-export class LandSettings{
-    isActive: boolean;
-    isDeleted: boolean;
-    registrationDate: Date;
-    joinedDate: Date;
+  export class Modified{
+    isModifiedAt?: Date;
+    isModifiedBy?: string;
+  }
+
+  export class Deactivated{
+    isDeactivatedAt?: Date;
+    isDeactivatedBy?: string;
   }

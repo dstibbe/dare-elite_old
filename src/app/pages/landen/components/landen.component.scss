@@ -41,12 +41,15 @@
     }    
 }
 
+
 .land-search{
     width: 0;
     overflow: hidden;
     transition: 0.3s;
+    text-align: center !important;
+    margin-left: -6%;
     .mat-form-field{
-        width: 100% !important;
+        width: 60%!important;
         text-align: center !important;
         height: 36px;        
     }
@@ -66,3 +69,45 @@
     position: absolute;
     top:0; right: 0; bottom: 0; left:0;
 }
+
+.no-padding {
+    padding: 0;
+}
+
+.header-title{
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-top: 12px;
+        color: whitesmoke;
+    }
+
+.data-table {
+    height: 550px;
+    overflow: auto;
+}
+
+.mat-footer-cell {
+    border-top: 1px solid #a5a4a4;
+  }
+
+tr.mat-footer-row {
+    font-weight: 800;
+  }
+
+  .mat-row {
+    min-height: 65px;
+ 
+    &.selected {
+        background: #e7e7e7;
+    }
+ }
+
+ table {
+    width: 100%; 
+    margin-top: 2em;
+ }
+
+ .tab-nieuw {
+     min-height: 550px;
+     margin-top: 3em;
+ }

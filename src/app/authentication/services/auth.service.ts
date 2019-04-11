@@ -1,57 +1,93 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { from } from 'rxjs';
-import * as firebase from 'firebase/app';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { User } from '../models/user.model';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { auth } from 'firebase/app';
 
-@Injectable({providedIn: 'root'})
+interface User {
+  uid: string;
+  email?: string | null;
+  photoURL?: string;
+  displayName?: string;
+}
+
+@Injectable()
 export class AuthService {
+  user: Observable<User | null>;
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) { }
-
-  register(email: string, password: string) {
-    return from(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+    this.user = this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 
-  updateProfile(displayName: string, photoUrl: string) {
-    const userProfile = this.afAuth.auth.currentUser;
-    if (userProfile) {
-      return <any>from(userProfile.updateProfile( { displayName: displayName, photoURL: photoUrl }));
+  //// Email/Password Auth ////
+
+  async emailSignUp(email: string, password: string) {
+    try {
+      const credential = await this.afAuth.auth
+        .createUserWithEmailAndPassword(email, password);
+      return this.updateUserData(credential.user); // if using firestore
+    }
+    catch (error) {
+      return this.handleError(error);
     }
   }
 
-  login(email: string, password: string) {
-    return from(this.afAuth.auth.signInWithEmailAndPassword(email, password));
-  }
-
- 
-  logout(uid: string) {
-    this.updateOnlineStatus(uid, false);
-    return from(this.afAuth.auth.signOut());
-  }
-
-  saveUser(user: User) {
-    const users = this.db.object('users/' + user.uid);
-    return users.set(user);
-  }
-
-  updateOnlineStatus(uid: string, status: boolean) {
-    if (status) {
-      this.db.database.ref().child('users/' + uid).onDisconnect().update( { isOnline: false });
+  async emailLogin(email: string, password: string) {
+    try {
+      const credential = await this.afAuth.auth
+        .signInWithEmailAndPassword(email, password);
+      return this.updateUserData(credential.user);
     }
-    return from(this.db.object('users/' + uid).update({ isOnline: status }));
+    catch (error) {
+      return this.handleError(error);
+    }
   }
 
-  checkUserRole(uid: string) {
-    return this.db.object('admins/' + uid).valueChanges();
+  // Sends email allowing user to reset password
+  async resetPassword(email: string) {
+    const fbAuth = auth();
+
+    try {
+      return fbAuth.sendPasswordResetEmail(email);
+    }
+    catch (error) {
+      return this.handleError(error);
+    }
   }
 
-  getAuthState() {
-    return this.afAuth.authState;
+  signOut() {
+    this.afAuth.auth.signOut().then(() => {
+      this.router.navigate(['/']);
+    });
   }
 
-  getCurrentUser() {
-    return this.afAuth.auth.currentUser;
+  // If error, console log and notify user
+  private handleError(error: Error) {
+    console.error(error);
+  }
+
+  // Sets user data to firestore after succesful login
+  private updateUserData(user: User) {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+      `users/${user.uid}`
+    );
+
+    const data: User = {
+      uid: user.uid,
+      email: user.email || null,
+      displayName: user.displayName || 'nameless user',
+      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
+    };
+    return userRef.set(data);
   }
 }
