@@ -4,7 +4,7 @@ import { Settings } from './app.settings.model';
 @Injectable()
 export class AppSettings {
     public settings = new Settings(
-        'Dare-software',   //theme name
+        'Dare-software',  
         true,       //loadingSpinner
         true,       //fixedHeader
         true,       //sidenavIsOpened
