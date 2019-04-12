@@ -17,9 +17,9 @@
         </div>
       </mat-card-header>
       <mat-card-content>
-        <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex">
+        <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selectedIndexChange($event)" [selectedIndex]="selectedIndex" dynamicHeight>
           <mat-tab label="Landen lijst" class="flex-p">
-            <div class="tab-table" >
+            <div class="tab-table">
               <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="index">
                   <th mat-header-cell *matHeaderCellDef>index</th>
@@ -70,9 +70,6 @@
             </div>
           </mat-tab>
           <mat-tab label="Historie">
-            <p class="py-1">Test</p>
-          </mat-tab>
-          <mat-tab label="Toegang beheer">
             <p class="py-1">Test</p>
           </mat-tab>
           <mat-tab label="Debug">

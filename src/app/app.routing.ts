@@ -11,10 +11,10 @@ export const routes: Routes = [
         path: '',
         component: PagesComponent, children: [
             { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
-            { path: 'crm', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'} }
+            { path: 'landen', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'} },
+            { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'CRM'} }
         ]
     },
-
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'error', component: ErrorComponent, data: { breadcrumb: 'Error' } },
@@ -24,4 +24,5 @@ export const routes: Routes = [
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {
    preloadingStrategy: PreloadAllModules,  // <- comment this line for activate lazy load
    // useHash: true
+   
 });

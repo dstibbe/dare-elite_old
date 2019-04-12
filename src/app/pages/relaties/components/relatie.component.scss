@@ -1,10 +1,13 @@
-.user-name{
+// @import "../../../theme/styles/variables";
+
+
+.relatie-name{
     padding: 0 12px;
     font-weight: 400;
 }
-.user-content{
+.relatie-content{
     padding: 10px;
-    .user-img{
+    .relatie-img{
         position: relative;
         img{
             border-radius: 50%;
@@ -26,7 +29,7 @@
     .mat-slide-toggle{
         margin-top: 15px;
     }
-    .user-details{
+    .relatie-details{
         span{
             overflow: hidden;
             text-overflow: ellipsis;
@@ -41,12 +44,22 @@
     }    
 }
 
-.user-search{
+.header-title{
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 12px;
+    color: whitesmoke;
+}
+
+
+.relatie-search{
     width: 0;
     overflow: hidden;
     transition: 0.3s;
+    text-align: center !important;
+    margin-left: -6%;
     .mat-form-field{
-        width: 100% !important;
+        width: 60%!important;
         text-align: center !important;
         height: 36px;        
     }
@@ -62,7 +75,61 @@
     }
 }
 
-.user-spinner{
+.relatie-spinner{
     position: absolute;
     top:0; right: 0; bottom: 0; left:0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+mat-card-header {
+    height: 42px;
+}
+
+ .formly-buttons {
+     margin-top: 1em;
+ }
+
+
+::ng-deep .display-none {
+    display: none !important;
+  }
+
+  .search-bar{
+    form{
+        input{
+            height: 28px;
+            border: none;
+            padding: 0;
+            border-radius: 15px;
+            outline: none;
+            color: #444;
+            width: 0;
+            overflow: hidden;
+            transition: 0.3s;
+            &.show{
+               padding: 0 8px;
+               width: 250px;
+            }
+        }       
+    }
+}
+
+.search-button {
+    margin-right: 1em;
+}
+
+  
+  .bounds {
+      padding: 2em;
+  }
+
+.tab-contact { 
+    padding: 2em;
+}
+
+.tab-financieel { 
+    padding: 2em;
 }

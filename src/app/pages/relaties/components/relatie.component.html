@@ -1,0 +1,69 @@
+<div fxLayout="column">
+  <div class="flex-p">
+    <mat-card class="no-padding">
+      <mat-card-header class="bg-primary" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <mat-card-subtitle fxFlex>
+            <h2 class="header-title">Relatie</h2>
+          </mat-card-subtitle>
+          <!-- <div fxLayout="row" fxLayoutAlign="end center" fxShow="false" fxShow.gt-xs class="search-bar">
+            <form method="get">
+              <input type="text" placeholder="Type to search..." class="mat-elevation-z3" [class.show]="toggleSearchBar" (keyup)="applyFilter($event.target.value)">
+              <button class="search-button" mat-icon-button (click)="toggleSearchBar = !toggleSearchBar" type="button">
+                <mat-icon>zoeken</mat-icon>
+              </button>
+            </form>
+          </div> -->
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit(model)" autocomplete="off">
+          <div class="bounds" fxLayout="row" fxLayoutGap="2%">
+            <div fxFlex="25">
+              <formly-form [form]="form" [fields]="fieldsTopSection1" [options]="options" [model]="model"></formly-form>
+            </div>
+            <div fxFlex="25">
+                <formly-form [form]="form" [fields]="fieldsTopSection2" [options]="options" [model]="model"></formly-form>
+              </div>
+          </div>
+
+
+          <mat-tab-group mat-align-tabs="left" dynamicHeight>
+
+            <mat-tab label="Contact">
+              <div class="tab-contact" fxLayout="row" fxLayoutGap="2%">
+
+                <div fxFlex="25">
+                  <formly-form [form]="form" [fields]="fieldsBezoekadres" [options]="options" [model]="model">
+                  </formly-form>
+                </div>
+
+                <div fxFlex="25">
+                  <formly-form [form]="form" [fields]="fieldsPostadres" [options]="options" [model]="model">
+                  </formly-form>
+                </div>
+
+                <div fxFlex="25">
+                  <formly-form [form]="form" [fields]="fieldsContact" [options]="options" [model]="model"></formly-form>
+                </div>
+
+              </div>
+              <button type="submit" mat-flat-button>send</button>
+            </mat-tab>
+
+            <mat-tab label="Financieel">
+
+                <div class="tab-financieel" fxLayout="row" fxLayoutGap="2%">
+                    <div fxFlex="25">
+                        <formly-form [form]="form" [fields]="fieldsBank" [options]="options" [model]="model"></formly-form>
+                      </div>
+                  </div>
+
+            </mat-tab>
+
+          </mat-tab-group>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

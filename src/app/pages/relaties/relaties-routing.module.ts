@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LandenComponent } from './components/landen.component';
+import { RelatieComponent } from './components/relatie.component';
 
 const routes: Routes = [
-  { path: '', component: LandenComponent, pathMatch: 'full' }
+  { path: '', component: RelatieComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class LandenRoutingModule {}
+export class RelatiesRoutingModule {}

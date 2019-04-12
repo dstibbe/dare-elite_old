@@ -1,4 +1,4 @@
-@import "../../../theme/styles/variables";
+// @import "../../../theme/styles/variables";
 
 .land-name{
     padding: 0 12px;
@@ -83,14 +83,13 @@
         color: whitesmoke;
     }
 
-.data-table {
-    height: 400px;
-    overflow: auto;
-}
-
 .mat-footer-cell {
     border-top: 1px solid #a5a4a4;
     border-bottom: 0px;
+  }
+
+  mat-card-header {
+      height: 42px;
   }
 
 tr.mat-footer-row {
@@ -108,14 +107,6 @@ tr.mat-footer-row {
 cursor: pointer;
  }
 
- table {
-    width: 100%; 
- }
-
- .tab-table {
-    //  min-height: 600px;
-      margin-top: 3em;
-  }
 
  .tab-nieuw {
       min-height: 600px;
@@ -131,13 +122,6 @@ cursor: pointer;
      margin-top: 1em;
  }
 
- .formly-buttons > button {
-  //  margin-left: 0.8em;
- }
-
- #btmFooter {
-    align-self: flex-end;
-  }
 
 ::ng-deep .display-none {
     display: none !important;
@@ -166,3 +150,14 @@ cursor: pointer;
 .search-button {
     margin-right: 1em;
 }
+
+.tab-table {
+    margin-top: 2em;
+    padding: 2em;
+    height: 650px;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
