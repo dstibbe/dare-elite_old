@@ -23,27 +23,51 @@
               <formly-form [form]="form" [fields]="fieldsTopSection1" [options]="options" [model]="model"></formly-form>
             </div>
             <div fxFlex="25">
-                <formly-form [form]="form" [fields]="fieldsTopSection2" [options]="options" [model]="model"></formly-form>
-              </div>
+              <formly-form [form]="form" [fields]="fieldsTopSection2" [options]="options" [model]="model"></formly-form>
+            </div>
           </div>
 
 
           <mat-tab-group mat-align-tabs="left" dynamicHeight>
 
             <mat-tab label="Contact">
-              <div class="tab-contact" fxLayout="row" fxLayoutGap="2%">
+              <div class="tab" fxLayout="row" fxLayoutGap="2%">
 
                 <div fxFlex="25">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">home</mat-icon>bezoekadres
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
                   <formly-form [form]="form" [fields]="fieldsBezoekadres" [options]="options" [model]="model">
                   </formly-form>
+                  <div style="width: 100%">
+                    <mat-checkbox (click)="postClickAnders()" style="width: 100%">Postadres anders dan bezoekadres</mat-checkbox>
+                  </div>
                 </div>
 
-                <div fxFlex="25">
+                <div fxFlex="25" *ngIf="postAnders === true">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">home</mat-icon>postadres
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
                   <formly-form [form]="form" [fields]="fieldsPostadres" [options]="options" [model]="model">
                   </formly-form>
                 </div>
 
                 <div fxFlex="25">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">contact_phone</mat-icon>contact
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
                   <formly-form [form]="form" [fields]="fieldsContact" [options]="options" [model]="model"></formly-form>
                 </div>
 
@@ -53,11 +77,87 @@
 
             <mat-tab label="Financieel">
 
-                <div class="tab-financieel" fxLayout="row" fxLayoutGap="2%">
-                    <div fxFlex="25">
-                        <formly-form [form]="form" [fields]="fieldsBank" [options]="options" [model]="model"></formly-form>
-                      </div>
+              <div class="tab" fxLayout="row" fxLayoutGap="2%">
+                <div fxFlex="25">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">account_balance</mat-icon>bank
+                      </mat-chip>
+                    </mat-chip-list>
                   </div>
+                  <formly-form [form]="form" [fields]="fieldsBank" [options]="options" [model]="model"></formly-form>
+                </div>
+                <div fxFlex="25">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected="true" class="info-chip">
+                        <mat-icon class="icon-sm">euro_symbol</mat-icon>btw en omzet
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                  <formly-form [form]="form" [fields]="fieldsBtwOmzet" [options]="options" [model]="model"></formly-form>
+                </div>
+              </div>
+
+            </mat-tab>
+
+            <mat-tab label="Contactpersonen">
+
+
+
+            </mat-tab>
+
+            <mat-tab label="Inkoop">
+              <div class="container">
+                <div id="content">
+                  <div id="main-content">
+                    <mat-tab-group>
+                      <mat-tab label="Verkoopoffertes">
+                        Tab One Content
+                      </mat-tab>
+                      <mat-tab label="Orders">
+                        Tab Two Content
+                      </mat-tab>
+                      <mat-tab label="Facturen">
+                          Tab Two Content
+                        </mat-tab>
+                        <mat-tab label="Offerte artikelen">
+                            Tab Two Content
+                          </mat-tab>
+                          <mat-tab label="Order artikelen">
+                              Tab Two Content
+                            </mat-tab>
+                    </mat-tab-group>
+                  </div>
+                </div>
+              </div>
+
+            </mat-tab>
+
+            <mat-tab label="Verkoop">
+
+
+
+            </mat-tab>
+
+            <mat-tab label="debug">
+
+              <div class="tab" fxLayout="row" fxLayoutGap="2%">
+                <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                  <mat-card>
+                    <mat-card-header>
+                      <mat-card-title>Form</mat-card-title>
+                      <mat-card-subtitle>Ingevulde waardes voor het data object</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <pre>
+                                      {{ form.value | json }}
+                              </pre>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
 
             </mat-tab>
 

@@ -11,6 +11,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class RelatieComponent implements OnInit {
 
+  postAnders: boolean;
 
   form = new FormGroup({});
   model: any = {}
@@ -19,8 +20,9 @@ export class RelatieComponent implements OnInit {
       type: 'input',
       key: 'id',
       templateOptions: {
-        label: 'id',
-        placeholder: 'id'
+        label: 'database id',
+        placeholder: 'id',
+        disabled: true
       }
     },
     {
@@ -56,6 +58,14 @@ export class RelatieComponent implements OnInit {
       templateOptions: {
         label: 'geblokkeerd',
         placeholder: 'relatie is geblokkeerd'
+      }
+    },
+    {
+      type: 'input',
+      key: 'failliet',
+      templateOptions: {
+        label: 'failliet',
+        placeholder: 'relatie is failliet'
       }
     },
   ];
@@ -132,16 +142,7 @@ export class RelatieComponent implements OnInit {
         placeholder: 'een afdeling of verdiepingsnummer wellicht',
         required: false,
       }
-    },
-    {
-      key: 'contact.bezoekadres.bezoekIsAndersDanPost',
-      type: 'input',
-      templateOptions: {
-        label: 'provincie',
-        placeholder: 'provincie bezoekadres',
-        required: false,
-      }
-    },
+    }
   ];
 
   fieldsPostadres: FormlyFieldConfig[] = [
@@ -260,7 +261,7 @@ export class RelatieComponent implements OnInit {
 
   fieldsBank: FormlyFieldConfig[] = [
     {
-      key: 'financieel.valuta',
+      key: 'financieel.bank.valuta',
       type: 'input',
       templateOptions: {
         label: 'valuta',
@@ -269,7 +270,7 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.bankrekeningnummer',
+      key: 'financieel.bank.bankrekeningnummer',
       type: 'input',
       templateOptions: {
         label: 'bankrekeningnummer',
@@ -278,7 +279,7 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.banknaam',
+      key: 'financieel.bank.banknaam',
       type: 'input',
       templateOptions: {
         label: 'banknaam',
@@ -287,7 +288,7 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.plaatsbank',
+      key: 'financieel.bank.plaatsbank',
       type: 'input',
       templateOptions: {
         label: 'plaatsbank',
@@ -296,7 +297,7 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.iban',
+      key: 'financieel.bank.iban',
       type: 'input',
       templateOptions: {
         label: 'IBAN Code',
@@ -305,7 +306,7 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.bic',
+      key: 'financieel.bank.bic',
       type: 'input',
       templateOptions: {
         label: 'BIC code',
@@ -314,11 +315,59 @@ export class RelatieComponent implements OnInit {
       }
     },
     {
-      key: 'financieel.giro',
+      key: 'financieel.bank.giro',
       type: 'input',
       templateOptions: {
         label: 'giro',
         placeholder: 'giro bedrijf',
+        required: false,
+      }
+    }
+  ];
+
+  fieldsBtwOmzet: FormlyFieldConfig[] = [
+    {
+      key: 'financieel.btw.btwBedrijfsgroep',
+      type: 'input',
+      templateOptions: {
+        label: 'BTW bedrijfsgroep',
+        placeholder: 'BTW bedrijfsgroep bedrijf',
+        required: false,
+      }
+    },
+    {
+      key: 'financieel.btw.btwNummer',
+      type: 'input',
+      templateOptions: {
+        label: 'BTW nummer',
+        placeholder: 'BTW nummer bedrijf',
+        required: false,
+      }
+    },
+    {
+      key: 'financieel.btw.controledatumBtwNummer',
+      type: 'input',
+      templateOptions: {
+        label: 'controledatum BTW-nummer',
+        placeholder: 'controledatum BTW-nummer bedrijf',
+        required: false,
+      }
+    },
+    {
+      key: 'financieel.omzet.omzetcode',
+      type: 'input',
+      templateOptions: {
+        label: 'omzetcode',
+        placeholder: 'omzetcode bedrijf',
+        required: false,
+      }
+    },
+    {
+      key: 'financieel.omzet.kostendrager',
+      type: 'input',
+      templateOptions: {
+        label: 'Kostendrager',
+        placeholder: 'Kostendrager bedrijf',
         required: false,
       }
     }
@@ -337,6 +386,14 @@ export class RelatieComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  postClickAnders() {
+    if (this.postAnders === true) {
+    this.postAnders = false;
+  } else {
+    this.postAnders = true;
+  }
+}
 
 
 }

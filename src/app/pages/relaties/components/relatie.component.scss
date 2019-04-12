@@ -126,10 +126,18 @@ mat-card-header {
       padding: 2em;
   }
 
-.tab-contact { 
+.tab { 
     padding: 2em;
 }
 
-.tab-financieel { 
-    padding: 2em;
+
+mat-chip-list {
+    margin-bottom: 2em;
 }
+
+::ng-deep mat-chip > mat-icon > .icon-sm, .mat-icon.icon-sm {
+    width: 25px;
+    height: 20px;
+}
+
+

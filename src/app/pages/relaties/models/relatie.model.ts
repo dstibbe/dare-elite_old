@@ -1,5 +1,4 @@
 import { Land } from '../../landen/models/land.model';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
 
 export class relatie {
     id?: string;
@@ -7,6 +6,7 @@ export class relatie {
     relatietype?: string;
     financieleStatus?: string;
     geblokkerd?: boolean;
+    failliet?: boolean;
     contact?: Contact;
     financieel?: Financieel;
 }

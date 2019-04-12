@@ -197,3 +197,61 @@
 
 
 
+:host ::ng-deep .container {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        background: none;
+    
+        
+        .mat-tab-group {
+            flex-direction: row;
+        }
+        .mat-tab-header {
+          border-bottom: none;
+        }
+        .mat-tab-header-pagination {
+            display: none !important;
+        }
+        .mat-tab-labels {
+            flex-direction: column;
+        }
+        .mat-ink-bar {
+            height: 100%;
+            left: 98% !important;
+        }
+        .mat-tab-body-wrapper {
+            flex: 1 1 auto;
+        }
+        .mat-tab-body-content {
+            width: 1024px;
+        }
+    
+}
+
+
+.container {
+    position: relative;
+    width: 100%;
+    flex: 1 0 auto;
+    margin: 0;
+    text-align: left;
+}
+
+#content {
+    box-sizing: content-box;
+    margin: 0;
+    padding: 15px;
+}
+
+#main-content {
+    &::before,
+    &::after {
+        content: "";
+        display: table;
+    }
+    &::after {
+        clear: both;
+    }
+}

@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatTableModule, MatSortModule } from '@angular/material';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyModule } from '@ngx-formly/core';
+import { TabsVerticalComponent } from 'src/app/theme/components/tabs-vertical/tabs-vertical';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { FormlyModule } from '@ngx-formly/core';
     FormlyModule,
     FormlyMaterialModule,
   ],
-  declarations: [RelatieComponent],
-  exports: [RelatieComponent]
+  declarations: [RelatieComponent, TabsVerticalComponent],
+  exports: [RelatieComponent, TabsVerticalComponent]
 })
 export class RelatiesModule { }
