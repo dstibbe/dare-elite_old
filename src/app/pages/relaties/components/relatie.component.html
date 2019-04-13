@@ -23,7 +23,7 @@
               <formly-form [form]="form" [fields]="fieldsTopSection1" [options]="options" [model]="model"></formly-form>
             </div>
             <div fxFlex="25">
-              <formly-form [form]="form" [fields]="fieldsTopSection2" [options]="options" [model]="model"></formly-form>
+              <formly-form-flex [form]="form" [model]="model" [fields]="fieldsTopSection2"></formly-form-flex>
             </div>
           </div>
 
@@ -41,8 +41,7 @@
                       </mat-chip>
                     </mat-chip-list>
                   </div>
-                  <formly-form [form]="form" [fields]="fieldsBezoekadres" [options]="options" [model]="model">
-                  </formly-form>
+                      <formly-form [form]="form" [model]="model" [fields]="fieldsBezoekadres"></formly-form>
                   <div style="width: 100%">
                     <mat-checkbox (click)="postClickAnders()" style="width: 100%">Postadres anders dan bezoekadres
                     </mat-checkbox>
@@ -71,6 +70,17 @@
                   </div>
                   <formly-form [form]="form" [fields]="fieldsContact" [options]="options" [model]="model"></formly-form>
                 </div>
+
+                <div fxFlex="25">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <mat-chip-list>
+                        <mat-chip color="primary" selected="true" class="info-chip">
+                          <mat-icon class="icon-sm">map</mat-icon>googlemap
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                 <dare-google-maps></dare-google-maps>
+                  </div>
 
               </div>
               <button type="submit" mat-flat-button>send</button>

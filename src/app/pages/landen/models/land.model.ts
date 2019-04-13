@@ -1,7 +1,8 @@
 export class Land {
     id?: string;
-    code?: string;
     naam?: string;
+    isoAlpha2?: string;
+    postcodemasker?: string;
     active?: boolean;
     landHistorie?: LandHistorie;
 }

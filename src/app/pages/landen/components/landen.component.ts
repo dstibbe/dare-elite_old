@@ -13,7 +13,7 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 })
 export class LandenComponent implements OnInit {
 
-  displayedColumns: string[] = ['index', 'code', 'naam'];
+  displayedColumns: string[] = ['isoAlpha2', 'naam', 'postcodemasker'];
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort) sort: MatSort;
   totalLengthRows: number;
@@ -27,8 +27,9 @@ export class LandenComponent implements OnInit {
 
   model = [{
     id: null,
-    code: 'NL',
-    naam: 'Nederland'
+    naam: 'Nederland',
+    isoAlpha2: 'NL',
+    postcodemasker: '[0-9]{4}[A-Z]{2}'
   }];
 
   fields: FormlyFieldConfig[] = [ 
@@ -42,20 +43,28 @@ export class LandenComponent implements OnInit {
       required: false,
     }
   }, {
-    key: 'code',
+    key: 'isoAlpha2',
     type: 'input',
     templateOptions: {
-      label: 'code',
-      placeholder: 'enter land code',
-      required: true,
+      label: 'ISO Alpha-2',
+      required: false,
+      placeholder: 'landcode',
     }
   }, {
+    key: 'postcodemasker',
+    type: 'input',
+    templateOptions: {
+      label: 'Postcodemasker',
+      required: false,
+      placeholder: 'voorbeeld masker: [0-9]{4}[A-Z]{2}',
+    }
+  },{
     key: 'naam',
     type: 'input',
     templateOptions: {
       label: 'naam',
       placeholder: 'enter naam van land',
-      required: true,
+      required: false,
     }
   }
   ];

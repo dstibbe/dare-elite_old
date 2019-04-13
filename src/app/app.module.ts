@@ -54,7 +54,11 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      validationMessages: [
+        { name: 'required', message: 'Veld is verplicht' },
+      ],
+    }),
     FormlyMaterialModule,
     PipesModule,
     routing,

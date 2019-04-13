@@ -5,6 +5,7 @@ export class relatie {
     naam?: string;
     relatietype?: string;
     financieleStatus?: string;
+    taal?: string;
     geblokkerd?: boolean;
     failliet?: boolean;
     contact?: Contact;
@@ -19,7 +20,6 @@ export class Contact{
     fax?: string;
     website?: string;
     email?: string;
-    taal?: string;
 }
 
 export class Bezoekadres{

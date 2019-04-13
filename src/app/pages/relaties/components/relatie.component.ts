@@ -30,17 +30,36 @@ export class RelatieComponent implements OnInit {
       key: 'naam',
       templateOptions: {
         type: 'text',
-        placeholder: 'Naam van bedrijf'
+        placeholder: 'Naam van bedrijf',
+        required: true,
       }
     },
     {
-      type: 'input',
       key: 'relatietype',
+      type: 'select',
       templateOptions: {
-        label: 'relatietype',
-        placeholder: 'type van de relatie'
-      }
-    }
+        label: 'Relatietype',
+        required: false,
+        options: [
+          { value: 1, label: 'Debiteur' },
+          { value: 2, label: 'Crediteur' },
+          { value: 3, label: 'Debiteur en Crediteur' }
+        ],
+      },
+    }, {
+      key: 'taal',
+      type: 'select',
+      templateOptions: {
+        label: 'Taal',
+        required: false,
+        description: 'wordt gebruikt voor print templates',
+        options: [
+          { value: 1, label: 'Nederlands' },
+          { value: 2, label: 'Frans' },
+          { value: 3, label: 'Engels' }
+        ],
+      },
+    },
   ];
 
   fieldsTopSection2: FormlyFieldConfig[] = [
@@ -49,25 +68,28 @@ export class RelatieComponent implements OnInit {
       key: 'financieleStatus',
       templateOptions: {
         label: 'financiele Status',
-        placeholder: 'financiele status'
+        placeholder: 'financiele status',
+        fxFlex: '100%',
       }
-    },
-    {
-      type: 'input',
+    }, {
       key: 'geblokkeerd',
+      type: 'checkbox',
       templateOptions: {
         label: 'geblokkeerd',
-        placeholder: 'relatie is geblokkeerd'
-      }
-    },
-    {
-      type: 'input',
+        required: false,
+        fxFlex: '25%',
+        indeterminate: false
+      },
+    }, {
       key: 'failliet',
+      type: 'checkbox',
       templateOptions: {
         label: 'failliet',
-        placeholder: 'relatie is failliet'
-      }
-    },
+        required: false,
+        fxFlex: '25%',
+        indeterminate: false
+      },
+    }
   ];
 
   fieldsBezoekadres: FormlyFieldConfig[] = [
@@ -76,7 +98,6 @@ export class RelatieComponent implements OnInit {
       type: 'input',
       templateOptions: {
         label: 'straat',
-        placeholder: 'straatnaam bezoekadres',
         required: false,
       }
     },
@@ -85,7 +106,6 @@ export class RelatieComponent implements OnInit {
       type: 'input',
       templateOptions: {
         label: 'huisnummer',
-        placeholder: 'huisnummer bezoekadres',
         required: false,
       }
     },
@@ -94,7 +114,6 @@ export class RelatieComponent implements OnInit {
       type: 'input',
       templateOptions: {
         label: 'toevoeging',
-        placeholder: 'toevoeging bezoekadres',
         required: false,
       }
     },
@@ -118,25 +137,33 @@ export class RelatieComponent implements OnInit {
     },
     {
       key: 'contact.bezoekadres.land',
-      type: 'input',
+      type: 'select',
       templateOptions: {
         label: 'land',
-        placeholder: 'land bezoekadres',
         required: false,
-      }
+        options: [
+          { value: 1, label: 'Nederland' },
+          { value: 2, label: 'Belgie' },
+          { value: 3, label: 'Engeland' }
+        ],
+      },
     },
     {
       key: 'contact.bezoekadres.provincie',
-      type: 'input',
+      type: 'select',
       templateOptions: {
-        label: 'provincie',
-        placeholder: 'provincie bezoekadres',
+        label: 'provincie/staat',
         required: false,
-      }
+        options: [
+          { value: 1, label: 'Flevoland' },
+          { value: 2, label: 'Noord-holland' },
+          { value: 3, label: 'Brabant' }
+        ],
+      },
     },
     {
       key: 'contact.bezoekadres.aanvullendeLocatieInfo',
-      type: 'input',
+      type: 'textarea',
       templateOptions: {
         label: 'aanvullende informatie',
         placeholder: 'een afdeling of verdiepingsnummer wellicht',
@@ -193,23 +220,30 @@ export class RelatieComponent implements OnInit {
     },
     {
       key: 'contact.postadres.land',
-      type: 'input',
+      type: 'select',
       templateOptions: {
         label: 'land',
-        placeholder: 'land postadres',
         required: false,
-      }
+        options: [
+          { value: 1, label: 'Nederland' },
+          { value: 2, label: 'Belgie' },
+          { value: 3, label: 'Engeland' }
+        ],
+      },
     },
     {
       key: 'contact.postadres.provincie',
-      type: 'input',
+      type: 'select',
       templateOptions: {
-        label: 'provincie',
-        placeholder: 'provincie postadres',
+        label: 'provincie/staat',
         required: false,
-      }
-    },
-    {
+        options: [
+          { value: 1, label: 'Flevoland' },
+          { value: 2, label: 'Noord-holland' },
+          { value: 3, label: 'Brabant' }
+        ],
+      },
+    }, {
       key: 'contact.postadres.aanvullendeLocatieInfo',
       type: 'input',
       templateOptions: {
@@ -262,12 +296,16 @@ export class RelatieComponent implements OnInit {
   fieldsBank: FormlyFieldConfig[] = [
     {
       key: 'financieel.bank.valuta',
-      type: 'input',
+      type: 'select',
       templateOptions: {
         label: 'valuta',
-        placeholder: 'valuta bedrijf',
         required: false,
-      }
+        options: [
+          { value: 1, label: 'Euro' },
+          { value: 2, label: 'Dollar' },
+          { value: 3, label: 'Pond' }
+        ],
+      },
     },
     {
       key: 'financieel.bank.bankrekeningnummer',
@@ -346,12 +384,12 @@ export class RelatieComponent implements OnInit {
     },
     {
       key: 'financieel.btw.controledatumBtwNummer',
-      type: 'input',
+      type: 'datepicker',
       templateOptions: {
         label: 'controledatum BTW-nummer',
-        placeholder: 'controledatum BTW-nummer bedrijf',
+        placeholder: 'datum',
         required: false,
-      }
+      },
     },
     {
       key: 'financieel.omzet.omzetcode',
@@ -465,11 +503,11 @@ export class RelatieComponent implements OnInit {
 
   postClickAnders() {
     if (this.postAnders === true) {
-    this.postAnders = false;
-  } else {
-    this.postAnders = true;
+      this.postAnders = false;
+    } else {
+      this.postAnders = true;
+    }
   }
-}
 
 
 }
