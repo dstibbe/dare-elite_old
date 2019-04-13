@@ -368,7 +368,82 @@ export class RelatieComponent implements OnInit {
       templateOptions: {
         label: 'Kostendrager',
         placeholder: 'Kostendrager bedrijf',
-        required: false,
+        required: false
+      }
+    }
+  ];
+
+  fieldsInkoopbepalingen: FormlyFieldConfig[] = [
+    {
+      type: 'input',
+      key: 'inkoopbetalingsconditie',
+      templateOptions: {
+        label: 'inkoopbetalingsconditie',
+        placeholder: 'inkoopbetalingsconditie',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'inkoopbetalingswijze',
+      templateOptions: {
+        label: 'inkoopbetalingswijze',
+        placeholder: 'inkoopbetalingswijze',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'kleinorderoptieInkoop',
+      templateOptions: {
+        label: 'kleinorderoptie inkoop',
+        placeholder: 'kleinorderoptie inkoop',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'inkoopkorting',
+      templateOptions: {
+        label: 'inkoop korting',
+        placeholder: 'inkoop korting',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'minimaalOrderbedragInkoop',
+      templateOptions: {
+        label: 'minimaal orderbedrag inkoop',
+        placeholder: 'minimaal orderbedrag inkoop',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'kleinordertoeslagInkoop',
+      templateOptions: {
+        label: 'kleinordertoeslag inkoop',
+        placeholder: 'kleinordertoeslag inkoop',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'inkoopIncoterm',
+      templateOptions: {
+        label: 'inkoop-incoterm',
+        placeholder: 'inkoop incoterm',
+        required: false
+      }
+    },
+    {
+      type: 'input',
+      key: 'inkoopIncotermsplaats',
+      templateOptions: {
+        label: 'inkoop incotermsplaats',
+        placeholder: 'inkoop incotermsplaats',
+        required: false
       }
     }
   ];
