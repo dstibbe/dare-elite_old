@@ -453,6 +453,7 @@ export class RelatieComponent implements OnInit {
   }
 
 
+  index = 0;
 
   constructor(private service: RelatieService, private firestore: AngularFirestore) {
 

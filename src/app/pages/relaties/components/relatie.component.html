@@ -28,7 +28,7 @@
           </div>
 
 
-          <mat-tab-group mat-align-tabs="left" color="accent" backgroundColor="primary" dynamicHeight>
+          <mat-tab-group mat-align-tabs="left" color="accent" backgroundColor="primary" dynamicHeight [(selectedIndex)]="index">
 
             <mat-tab label="Contact">
               <div class="tab" fxLayout="row" fxLayoutGap="2%">
@@ -44,7 +44,8 @@
                   <formly-form [form]="form" [fields]="fieldsBezoekadres" [options]="options" [model]="model">
                   </formly-form>
                   <div style="width: 100%">
-                    <mat-checkbox (click)="postClickAnders()" style="width: 100%">Postadres anders dan bezoekadres</mat-checkbox>
+                    <mat-checkbox (click)="postClickAnders()" style="width: 100%">Postadres anders dan bezoekadres
+                    </mat-checkbox>
                   </div>
                 </div>
 
@@ -96,7 +97,8 @@
                       </mat-chip>
                     </mat-chip-list>
                   </div>
-                  <formly-form [form]="form" [fields]="fieldsBtwOmzet" [options]="options" [model]="model"></formly-form>
+                  <formly-form [form]="form" [fields]="fieldsBtwOmzet" [options]="options" [model]="model">
+                  </formly-form>
                 </div>
               </div>
 
@@ -109,59 +111,39 @@
             </mat-tab>
 
             <mat-tab label="Inkoop">
-              <div class="tab-inkoop" fxLayout="row" fxLayoutGap="2%">
 
-                <div fxFlex="45">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-chip-list style="margin-left: 2em">
-                          <mat-chip color="primary" selected="true" class="info-chip">
-                            <mat-icon class="icon-sm">image_search</mat-icon>Overzicht
-                          </mat-chip>
-                        </mat-chip-list>
-                      </div>
-                  <div class="container">
-                    <div id="content">
-                      <div id="main-content">
-                        <mat-tab-group [selectedIndex]="0">
-                          <mat-tab label="Inkoopofferte leverancier">
-                            Tab One Content
-                          </mat-tab>
-                          <mat-tab label="Inkooporders">
-                            Tab Two Content
-                          </mat-tab>
-                          <mat-tab label="Inkoopfacturen">
-                            Tab Two Content
-                          </mat-tab>
-                          <mat-tab label="Goederenontvangsten">
-                            Tab Two Content
-                          </mat-tab>
-                        </mat-tab-group>
-                      </div>
-                    </div>
+
+              <mat-tab-group style="margin-top: 1.5em;" *ngIf="index == 3" [selectedIndex]="0">
+                <mat-tab label="Inkoopbepalingen">
+                  <div fxFlex="33" style="margin: 2em;">
+                    <formly-form [form]="form" [fields]="fieldsInkoopbepalingen" [options]="options" [model]="model">
+                    </formly-form>
                   </div>
-                </div>
-                <div fxFlex="25">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-chip-list>
-                          <mat-chip color="primary" selected="true" class="info-chip">
-                            <mat-icon class="icon-sm">assignment</mat-icon>Inkoopbepalingen
-                          </mat-chip>
-                        </mat-chip-list>
-                      </div>
-                      <formly-form [form]="form" [fields]="fieldsInkoopbepalingen" [options]="options" [model]="model"></formly-form>
-                </div>
-
-                <div fxFlex="25">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-chip-list>
-                          <mat-chip color="primary" selected="true" class="info-chip">
-                            <mat-icon class="icon-sm">check_box</mat-icon>Crediteur
-                          </mat-chip>
-                        </mat-chip-list>
-                      </div>
+                </mat-tab>
+                <mat-tab label="Transport">
+                    <div fxFlex="33" style="margin: 2em;">
                       <!-- <formly-form [form]="form" [fields]="fieldsCrediteur" [options]="options" [model]="model"></formly-form> -->
+                    </div>
+                </mat-tab>
+                <mat-tab label="Crediteur">
+                  <div fxFlex="33" style="margin: 2em;">
+                    <!-- <formly-form [form]="form" [fields]="fieldsCrediteur" [options]="options" [model]="model"></formly-form> -->
                   </div>
-              </div>
+                </mat-tab>
+                <mat-tab label="Inkoopofferte leverancier">
+                  Tab One Content
+                </mat-tab>
+                <mat-tab label="Inkooporders">
+                  Tab Two Content
+                </mat-tab>
+                <mat-tab label="Inkoopfacturen">
+                  Tab Two Content
+                </mat-tab>
+                <mat-tab label="Goederenontvangsten">
+                  Tab Two Content
+                </mat-tab>
+
+              </mat-tab-group>
             </mat-tab>
 
             <mat-tab label="Verkoop">

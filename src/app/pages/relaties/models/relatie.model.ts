@@ -9,6 +9,7 @@ export class relatie {
     failliet?: boolean;
     contact?: Contact;
     financieel?: Financieel;
+    inkoop?: Inkoop;
 }
 
 export class Contact{
@@ -69,4 +70,39 @@ export class Btw{
 export class Omzet{
   omzetcode?: string;
   kostendrager?: string;
+}
+
+export class Inkoop{
+  inkoopBestanden: InkoopBestanden;
+  inkoopbepalingen: Inkoopbepalingen;
+  crediteur: Crediteur;
+}
+
+export class InkoopBestanden{
+  bestanden: [];
+}
+
+export class Inkoopbepalingen{
+  inkoopbetalingsconditie?: string;
+  inkoopbetalingswijze?: string;
+  kleinorderoptieInkoop?: string;
+  inkoopkorting?: string;
+  minimaalOrderbedragInkoop?: string;
+  kleinordertoeslagInkoop?: string;
+  transport?: Transport;
+  inkoopIncoterm?: string;
+  inkoopIncotermsplaats?: string;
+}
+
+export class Transport{
+  inkoopIncoterm?: string;
+  inkoopIncotermsplaats?: string;
+}
+
+export class Crediteur{
+  isLeverancier?: boolean;
+  crediteurennummer?: string;
+  automatischBetalen?: boolean;
+  klantcodeCrediteur?: string;
+  inkoopdagboek?: string;
 }
