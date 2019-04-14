@@ -57,7 +57,7 @@
 
         <div perfectScrollbar>
 
-            <div fxLayout="column" class="control">
+            <!-- <div fxLayout="column" class="control">
                 <h4>Layout</h4>        
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <span>Fixed header</span>
@@ -67,9 +67,9 @@
                     <span>RTL</span>
                     <mat-slide-toggle [checked]="settings.rtl" (change)="settings.rtl = !settings.rtl" labelPosition="before"></mat-slide-toggle>
                 </div>
-            </div>
+            </div> -->
 
-            <div fxLayout="column" class="control">
+            <!-- <div fxLayout="column" class="control">
                 <h4>Choose menu</h4>
                 <mat-radio-group [(ngModel)]="menuOption" (change)="chooseMenu()">
                     <mat-radio-button *ngFor="let menu of menus" [value]="menu">{{menu}}</mat-radio-button>
@@ -81,7 +81,7 @@
                 <mat-radio-group [(ngModel)]="menuTypeOption" (change)="chooseMenuType()">
                     <mat-radio-button *ngFor="let menuType of menuTypes" [value]="menuType">{{menuType}}</mat-radio-button>
                 </mat-radio-group>
-            </div>
+            </div> -->
 
             <div fxLayout="column" class="control">
                 <h4>Choose theme skin</h4>        
@@ -94,7 +94,7 @@
                     <div class="skin-primary pink-dark" (click)="changeTheme('pink-dark')"><div class="skin-secondary"></div></div>  
                 </div>
             </div>
-
+<!-- 
             <div fxLayout="column" class="control">
                 <h4>Sidenav options</h4>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -109,7 +109,7 @@
                     <span>Sidenav user info</span>
                     <mat-slide-toggle [checked]="settings.sidenavUserBlock" (change)="settings.sidenavUserBlock = !settings.sidenavUserBlock" labelPosition="before"></mat-slide-toggle>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
