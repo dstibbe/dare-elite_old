@@ -42,13 +42,21 @@
     }    
 }
 
-::ng-deep .cdk-column-isoAlpha2 {
-    width: 250px !important;
+.table-tab {
+    margin-bottom: 2em;
 }
 
-::ng-deep .cdk-column-naam {
-    width: 250px !important;
-}
+.tab-table {
+  //  margin-top: 2em;
+   // padding: 2em;
+    height: 850px;
+    overflow: auto;
+  }
+  
+  mat-table {
+    width: 100%;
+  }
+
 
 
 .land-search{
@@ -90,7 +98,7 @@
         color: whitesmoke;
     }
 
-.mat-footer-cell {
+mat-footer-cell {
     border-top: 1px solid #a5a4a4;
     border-bottom: 0px;
   }
@@ -99,8 +107,10 @@
       height: 42px;
   }
 
-tr.mat-footer-row {
+mat-footer-row {
     font-weight: 500;
+    border-top: 1px solid #a5a4a4;
+    border-bottom: 0px;
   }
 
   .mat-row {
@@ -110,7 +120,7 @@ tr.mat-footer-row {
     }
  }
 
- .mat-cell:hover {
+mat-cell:hover {
 cursor: pointer;
  }
 
@@ -158,14 +168,5 @@ cursor: pointer;
     margin-right: 1em;
 }
 
-.tab-table {
-    margin-top: 2em;
-    padding: 2em;
-    height: 650px;
-    overflow: auto;
-  }
-  
-  table {
-    width: 100%;
-  }
+
 
