@@ -3,8 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
-import { AppSettings } from 'src/app/app.settings';
-import { Settings } from 'src/app/app.settings.model';
+import { AppSettings } from '../../../app.settings';
+import { Settings } from '../../../app.settings.model';
 
 @Component({
   selector: 'dare-login',
@@ -14,9 +14,11 @@ import { Settings } from 'src/app/app.settings.model';
 export class LoginComponent implements OnInit, AfterViewInit {
 
   loginForm: FormGroup;
-  public settings: Settings;
+  settings: Settings;
 
-  constructor(public appSettings: AppSettings, public auth: AuthService, private router: Router, public fb: FormBuilder) { }
+  constructor(public appSettings: AppSettings, public auth: AuthService, private router: Router, public fb: FormBuilder) { 
+    this.settings = this.appSettings.settings;
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-   // this.settings.loadingSpinner = false; 
+    this.settings.loadingSpinner = false; 
   }
 
 }
