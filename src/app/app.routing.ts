@@ -10,12 +10,12 @@ export const routes: Routes = [
     {
         path: '',
         component: PagesComponent, children: [
+            { path: 'login', component: LoginComponent },
             { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'landen', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'} },
             { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'CRM'} }
         ]
     },
-    { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'error', component: ErrorComponent, data: { breadcrumb: 'Error' } },
     { path: '**', component: NotFoundComponent }
