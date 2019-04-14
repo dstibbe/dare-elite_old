@@ -2,13 +2,15 @@ import * as functions from 'firebase-functions';
 import {Land} from "../../../src/app/pages/landen/models/land.model";
 import * as admin from 'firebase-admin';
 
-function handleCountryDefined(details: Land) {
+async function handleCountryDefined(details: Land) {
   console.log('Store land : ', details);
-  return admin.firestore().collection("/landen")
-    .add(details)
-    .catch(problem =>
-      console.log("Couldn't store problem: ", problem)
-    )
+  try {
+    return admin.firestore().collection("/landen")
+      .add(details);
+  }
+  catch (problem) {
+    return console.log("Couldn't store problem: ", problem);
+  }
 }
 
 function handleCountryUpdated(details: any) {
