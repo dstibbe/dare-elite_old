@@ -77,7 +77,7 @@ export class RelatieComponent implements OnInit {
       templateOptions: {
         label: 'geblokkeerd',
         required: false,
-        fxFlex: '25%',
+        fxFlex: '130px',
         indeterminate: false
       },
     }, {
@@ -86,7 +86,7 @@ export class RelatieComponent implements OnInit {
       templateOptions: {
         label: 'failliet',
         required: false,
-        fxFlex: '25%',
+        fxFlex: '120px',
         indeterminate: false
       },
     }
