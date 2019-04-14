@@ -49,7 +49,7 @@
 .tab-table {
   //  margin-top: 2em;
    // padding: 2em;
-    height: 850px;
+    max-height: 850px;
     overflow: auto;
   }
   
@@ -113,8 +113,8 @@ mat-footer-row {
     border-bottom: 0px;
   }
 
-  .mat-row {
-    min-height: 65px; 
+  mat-row {
+    height: 20px; 
     &.selected {
         background: #e7e7e7;
     }
