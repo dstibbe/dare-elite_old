@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { LandenService } from '../services/landen.service';
-import { Land } from '../models/land.model';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {LandenService} from '../services/landen.service';
+import {Land} from '../models/land.model';
+import {MatSort, MatTableDataSource} from '@angular/material';
+import {FormGroup} from '@angular/forms';
+import {FormlyFieldConfig, FormlyFormOptions} from '@ngx-formly/core';
 
 @Component({
   selector: 'dare-landen',
@@ -19,54 +19,50 @@ export class LandenComponent implements OnInit {
   totalLengthRows: number;
   selectedRowIndex: number;
   selectedRow: any;
-  selectedIndex:number=0;
+  selectedIndex: number = 0;
 
   form = new FormGroup({});
   options: FormlyFormOptions = {};
   tabTitle: string;
+  newModel: boolean;
 
-  model = [{
-    id: null,
-    naam: 'Nederland',
-    isoAlpha2: 'NL',
-    postcodemasker: '[0-9]{4}[A-Z]{2}'
-  }];
+  model:Land = {};
 
-  fields: FormlyFieldConfig[] = [ 
+  fields: FormlyFieldConfig[] = [
     {
-    key: 'id',
-    type: 'input',
-    className: 'display-none',
-    templateOptions: {
-      label: 'id',
-      placeholder: 'id',
-      required: false,
+      key: 'id',
+      type: 'input',
+      className: 'display-none',
+      templateOptions: {
+        label: 'id',
+        placeholder: 'id',
+        required: false,
+      }
+    }, {
+      key: 'isoAlpha2',
+      type: 'input',
+      templateOptions: {
+        label: 'ISO Alpha-2',
+        required: false,
+        placeholder: 'landcode',
+      }
+    }, {
+      key: 'postcodemasker',
+      type: 'input',
+      templateOptions: {
+        label: 'Postcodemasker',
+        required: false,
+        placeholder: 'voorbeeld masker: [0-9]{4}[A-Z]{2}',
+      }
+    }, {
+      key: 'naam',
+      type: 'input',
+      templateOptions: {
+        label: 'naam',
+        placeholder: 'enter naam van land',
+        required: false,
+      }
     }
-  }, {
-    key: 'isoAlpha2',
-    type: 'input',
-    templateOptions: {
-      label: 'ISO Alpha-2',
-      required: false,
-      placeholder: 'landcode',
-    }
-  }, {
-    key: 'postcodemasker',
-    type: 'input',
-    templateOptions: {
-      label: 'Postcodemasker',
-      required: false,
-      placeholder: 'voorbeeld masker: [0-9]{4}[A-Z]{2}',
-    }
-  },{
-    key: 'naam',
-    type: 'input',
-    templateOptions: {
-      label: 'naam',
-      placeholder: 'enter naam van land',
-      required: false,
-    }
-  }
   ];
 
   constructor(private service: LandenService, private firestore: AngularFirestore) {
@@ -81,15 +77,16 @@ export class LandenComponent implements OnInit {
           id: item.payload.doc.id,
           ...item.payload.doc.data()
         } as Land;
-      })
+      });
       this.dataSource = new MatTableDataSource(array);
       this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        return data.code.toLowerCase().includes(filter) ||  data.naam.toLowerCase().includes(filter);
-     };
+      this.dataSource.filterPredicate = function (data, filter: string): boolean {
+        return data.isoAlpha2.toLowerCase().includes(filter) || data.naam.toLowerCase().includes(filter);
+      };
       console.log('list of landen', array);
       this.totalLengthRows = array.length - 1;
-      this.tabTitle = 'nieuw'
+      this.tabTitle = 'nieuw';
+      this.newModel = true;
     });
   }
 
@@ -100,23 +97,21 @@ export class LandenComponent implements OnInit {
 
 
   clickMe() {
-    this.selectedIndex=0;
+    this.selectedIndex = 0;
     this.selectedRow = null
   }
 
-  selectedIndexChange(val: number){
-    this.selectedIndex=val;
+  selectedIndexChange(val: number) {
+    this.selectedIndex = val;
   }
 
   selectRow(row: { [key: string]: any; }) {
-    this.selectedRow = row
+    this.selectedRow = row;
     this.form.patchValue(row);
     console.log('row', row);
-    if (row.id !== null) {
-      this.tabTitle = 'Edit'
-    }else {
-      this.tabTitle = 'nieuw'
-    }
+    this.tabTitle = 'Edit';
+    this.newModel = false;
+
   }
 
   // nog niet gedaan
@@ -126,23 +121,34 @@ export class LandenComponent implements OnInit {
 
   resetForm() {
     this.options.resetModel()
-    this.tabTitle = 'nieuw'
+    this.tabTitle = 'nieuw';
+    this.newModel = true;
     this.clickMe()
   }
 
 
-
   submit(model) {
-    console.log('model from submit', model);
     let data = Object.assign({}, model);
-    console.log('data from submit', data);
     delete data.id;
-    console.log('after del data from submit', data);
-    console.log('after del model from submit', model);
-    if (model.id == null)
-      this.firestore.collection('landen').add(data);
-    else
-      this.firestore.doc('landen/' + model.id).update(data);
+    if (this.newModel) {
+      this.firestore.collection('events').add(
+        {
+          type: 'countryDefined',
+          details: {
+            ...model
+          }
+        }
+      );
+    } else {
+      this.firestore.collection('events').add(
+        {
+          type: 'countryUpdated',
+          details: {
+            ...model
+          }
+        }
+      );
+    }
     this.options.resetModel()
     this.clickMe()
   }

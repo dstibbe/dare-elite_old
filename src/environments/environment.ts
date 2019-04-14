@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDH_CcnC8itgTe-c8pFcxf-SWVmmfSrrvA",
-    authDomain: "tgs-sales-8f961.firebaseapp.com",
-    databaseURL: "https://tgs-sales-8f961.firebaseio.com",
-    projectId: "tgs-sales-8f961",
-    storageBucket: "tgs-sales-8f961.appspot.com",
-    messagingSenderId: "133469942762"
+    apiKey: "AIzaSyA24QxOEbydT_u6wP2-GZ1vIPMpHZRDSXo",
+    authDomain: "dare-elite.firebaseapp.com",
+    databaseURL: "https://dare-elite.firebaseio.com",
+    projectId: "dare-elite",
+    storageBucket: "dare-elite.appspot.com",
+    messagingSenderId: "824498387022"
   }
 };
 
