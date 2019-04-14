@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   onLogin(loginForm: { email: string; password: string; }) {
+    if (this.loginForm.valid) {
     this.auth.emailLogin(loginForm.email, loginForm.password).then(() => this.afterSignIn())
+    }
   }
 
 
