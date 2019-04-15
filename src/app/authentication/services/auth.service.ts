@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
+  
   user: Observable<User | null>;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {

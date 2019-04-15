@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { emailValidator, matchingPasswords } from 'src/app/theme/utils/app-validators';
+import { AppSettings } from 'src/app/app.settings';
+import { Settings } from 'src/app/app.settings.model';
 
 @Component({
   selector: 'dare-register',
@@ -10,27 +13,40 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
+  form: FormGroup;
+  public settings: Settings;
+  constructor(public appSettings: AppSettings, public auth: AuthService, private router: Router, public fb: FormBuilder) { 
 
-  constructor(public auth: AuthService, private router: Router) { }
+    this.settings = this.appSettings.settings; 
 
-  ngOnInit() {
-    this.registerForm = new FormGroup({
-      username: new FormControl(),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
-    });
+    this.form = this.fb.group({
+      'firstname': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'lastname': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'email': [null, Validators.compose([Validators.required, emailValidator])],
+      'password': ['', Validators.required],
+      'confirmPassword': ['', Validators.required]
+    },{validator: matchingPasswords('password', 'confirmPassword')});
 
   }
 
-  get email() { return this.registerForm.get('email'); }
-  get password() { return this.registerForm.get('password'); }
+  ngOnInit() {
 
-  onRegister(registerForm: { email: string; password: string; }) {
-    this.auth.emailSignUp(registerForm.email, registerForm.password).then(() => this.afterSignIn())
+
+  }
+
+  onSubmit(form) {
+    if (this.form.valid) {
+    this.auth.emailSignUp(form.email, form.password).then(() => this.afterSignIn())
+    this.router.navigate(['/login']);
+    }
   }
 
   private afterSignIn() {
     return this.router.navigate(['/login']);
   }
+
+  ngAfterViewInit(){
+    this.settings.loadingSpinner = false; 
+  }
+
 }
