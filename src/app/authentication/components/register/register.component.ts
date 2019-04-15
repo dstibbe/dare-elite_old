@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
   onSubmit(form) {
     if (this.form.valid) {
     this.auth.emailSignUp(form.email, form.password).then(() => this.afterSignIn())
-    this.router.navigate(['/login']);
     }
   }
 
