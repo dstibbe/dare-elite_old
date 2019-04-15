@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { AppSettings } from './app.settings';
 import { Settings } from './app.settings.model';
-import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'dare-root',

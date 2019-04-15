@@ -14,7 +14,7 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent },
             { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'landen', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'} },
-            { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'CRM'} }
+            { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'Relatie'} } //relatie en relaties dient nog gesplits te worden
         ]
     },
  
