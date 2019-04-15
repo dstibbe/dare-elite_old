@@ -1,10 +1,10 @@
 export interface User {
   uid: string;
-  displayName: string;
+  firstname?: string;
+  lastname?: string;
   email: string;
-  providerId: string;
-  photoUrl: string;
-  isNewUser?: boolean;
-  isAdmin?: boolean;
-  isOnline?: boolean;
+  crm?: boolean;
+  inkoop?: boolean;
+  verkoop?: boolean;
+  isDeleted?: boolean;
 }

@@ -5,13 +5,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { auth } from 'firebase/app';
+import { User } from '../models/user.model';
 
-interface User {
-  uid: string;
-  email?: string | null;
-  photoURL?: string;
-  displayName?: string;
-}
 
 @Injectable()
 export class AuthService {
@@ -85,8 +80,12 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      displayName: user.displayName || 'nameless user',
-      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
+      firstname: user.firstname || null,
+      lastname: user.lastname || null,
+      crm: user.crm || false,
+      inkoop: user.inkoop || false,
+      verkoop: user.verkoop || false,
+      isDeleted: user.isDeleted || false
     };
     return userRef.set(data);
   }
