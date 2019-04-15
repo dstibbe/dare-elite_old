@@ -17,7 +17,7 @@ export const verticalMenuItems = [
     new Menu (14, 'Rechtsvormen', 'crm/rechtsvormen', null, 'more_horiz', null, false, 8),
     new Menu (15, 'Titles', 'crm/titles', null, 'more_horiz', null, false, 8),
     new Menu (16, 'Functies', 'crm/functies', null, 'more_horiz', null, false, 8), 
-  //  new Menu (17, 'Users', '/users', null, 'supervisor_account', null, false, 0), 
+    new Menu (17, 'Users', '/users', null, 'supervisor_account', null, false, 0), 
 ]
 
 export const horizontalMenuItems = []
