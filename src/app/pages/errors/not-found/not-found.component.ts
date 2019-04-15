@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 
 @Component({
-  selector: 'app-not-found',
+  selector: 'dare-not-found',
   templateUrl: './not-found.component.html'
 })
-export class NotFoundComponent{
+export class NotFoundComponent implements AfterViewInit{
+
   public settings: Settings;
+
   constructor(public appSettings:AppSettings, public router:Router) {
+
     this.settings = this.appSettings.settings; 
+
   }
 
-  searchResult(): void {
-    this.router.navigate(['/search']);
+  homePage(): void {
+    this.router.navigate(['/']);
   }
 
   ngAfterViewInit(){
