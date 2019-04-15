@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     return this.router.navigate(['/']);
   }
 
-  
   ngAfterViewInit(){
     this.settings.loadingSpinner = false; 
   }

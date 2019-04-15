@@ -13,8 +13,7 @@ export const routes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'landen', loadChildren: './pages/landen/landen.module#LandenModule', data: { breadcrumb: 'CRM'} },
-            { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'CRM'} },
-            { path: 'users', loadChildren: './pages/users/users.module#UsersModule', data: { breadcrumb: 'Users'} }
+            { path: 'relatie', loadChildren: './pages/relaties/relaties.module#RelatiesModule', data: { breadcrumb: 'CRM'} }
         ]
     },
     { path: 'register', component: RegisterComponent },
