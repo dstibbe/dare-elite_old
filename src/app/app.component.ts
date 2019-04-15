@@ -11,32 +11,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class AppComponent implements OnInit {
   
   settings: Settings;
-  isLoggedIn = false;
 
-
-  constructor(public appSettings: AppSettings, afAuth: AngularFireAuth){
+  constructor(public appSettings: AppSettings){
       this.settings = this.appSettings.settings;
 
-      afAuth.authState.subscribe(auth => {
-        if(auth) {
-          console.log('logged in');
-          this.isLoggedIn = true;
-        } else {
-          console.log('not logged in');
-          this.isLoggedIn = false;
-        }
-      });
   } 
 
   ngOnInit() {
   }
-
-  onLogout() {
-
-  }
-
-  isLoggedStatus() {
-    return this.isLoggedIn;
-}
   
 }
