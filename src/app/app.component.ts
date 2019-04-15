@@ -1,8 +1,7 @@
-import { Component, ViewChild, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AppSettings } from './app.settings';
 import { Settings } from './app.settings.model';
-import { Observable } from 'rxjs';
-import { User } from './authentication/models/user.model';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'dare-root',
@@ -11,10 +10,22 @@ import { User } from './authentication/models/user.model';
 })
 export class AppComponent implements OnInit {
   
-  public settings: Settings;
+  settings: Settings;
+  isLoggedIn = false;
 
-  constructor(public appSettings: AppSettings){
+
+  constructor(public appSettings: AppSettings, afAuth: AngularFireAuth){
       this.settings = this.appSettings.settings;
+
+      afAuth.authState.subscribe(auth => {
+        if(auth) {
+          console.log('logged in');
+          this.isLoggedIn = true;
+        } else {
+          console.log('not logged in');
+          this.isLoggedIn = false;
+        }
+      });
   } 
 
   ngOnInit() {
@@ -23,5 +34,9 @@ export class AppComponent implements OnInit {
   onLogout() {
 
   }
+
+  isLoggedStatus() {
+    return this.isLoggedIn;
+}
   
 }

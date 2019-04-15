@@ -27,9 +27,12 @@
             <span>Help</span> 
         </a>
         <div class="divider"></div>
-        <a mat-menu-item routerLink="/login"> 
+        <a mat-menu-item routerLink="/login" *ngIf="!isLoggedStatus()"> 
             <mat-icon>power_settings_new</mat-icon>
-            <span>Log out</span> 
+            <span>Login</span> 
         </a>
-    <!--</span>-->
+        <a mat-menu-item routerLink="/" *ngIf="isLoggedStatus()" (click)="logout()"> 
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Logout</span> 
+        </a>
 </mat-menu>
