@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="end center" class="flex-p">
+<div fxLayout="row" fxLayoutAlign="start center" class="flex-p">
     <div fxLayout="row">
         <mat-button-toggle-group #controls="matButtonToggleGroup">
             <mat-button-toggle value="add" (click)="openUserDialog(null)">
@@ -31,12 +31,8 @@
                 </span>
             </mat-menu>
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
-                 <div fxFlex="100" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" [class.blocked]="user.settings.isDeleted">
-                    <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
-                        <p fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon class="muted-text">event_available</mat-icon>
-                            <span>Registration {{user.settings.registrationDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
-                        </p>
+                <div fxFlex="100" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" [class.blocked]="user.settings.isDeleted">
+                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon *ngIf="user.settings.isDeleted" class="muted-text">person_outline</mat-icon>
                             <mat-icon *ngIf="!user.settings.isDeleted" class="muted-text">person</mat-icon>
@@ -44,7 +40,20 @@
 
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
-                            <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle> Blockuser
+                            <mat-icon class="muted-text">event_available</mat-icon>
+                            <span>Registration {{user.settings.registrationDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon *ngIf="user.settings.isDeleted" class="muted-text">lock</mat-icon>
+                            <mat-icon *ngIf="!user.settings.isDeleted" class="muted-text">lock</mat-icon>
+                            <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
+
+                        </p>
+                    </div>
+                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="muted-text">more_horiz</mat-icon>
+                            <span>crm: {{ (user.userroles.crm) ? 'yes' : 'no' }}</span>
                         </p>
                     </div>
                 </div>

@@ -3,7 +3,8 @@ export class User {
   id?: string;
   email: string;
   settings?: Usersettings;
-  profile?: Userprofile
+  profile?: Userprofile;
+  userroles?: Userroles;
 }
 
 export class Userprofile {  
@@ -15,4 +16,14 @@ export class Usersettings{
   isActive?: boolean;
   isDeleted?: boolean;
   registrationDate?: Date;
+}
+
+export class Userroles{
+  crm?: boolean;
+  inkoop?: boolean;
+  verkoop?: boolean;
+  artikelen?: boolean;
+  financiel?: boolean;
+  werknemers?: boolean;
+  uren?: boolean;
 }

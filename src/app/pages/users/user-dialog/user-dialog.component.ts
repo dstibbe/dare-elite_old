@@ -9,11 +9,11 @@ import { User, Userprofile, Usersettings } from 'src/app/authentication/models/u
   styleUrls: ['./user-dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
+
   public form:FormGroup;
   public passwordHide:boolean = true;
-  constructor(public dialogRef: MatDialogRef<UserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public user: User,
-              public fb: FormBuilder) {
+
+  constructor(public dialogRef: MatDialogRef<UserDialogComponent>, @Inject(MAT_DIALOG_DATA) public user: User, public fb: FormBuilder) {
     this.form = this.fb.group({
       id: null,    
       profile: this.fb.group({
@@ -23,6 +23,15 @@ export class UserDialogComponent implements OnInit {
       settings: this.fb.group({
         isDeleted: null,
         registrationDate: null
+      }),
+      userroles: this.fb.group({
+        crm: null,
+        inkoop: null,
+        verkoop: null,
+        artikelen: null,
+        financiel: null,
+        werknemers: null,
+        uren: null
       })
     });
   }
