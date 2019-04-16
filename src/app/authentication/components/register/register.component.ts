@@ -20,11 +20,26 @@ export class RegisterComponent implements OnInit {
     this.settings = this.appSettings.settings; 
 
     this.form = this.fb.group({
-      'firstname': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'lastname': [null, Validators.compose([Validators.required, Validators.minLength(3)])],
       'email': [null, Validators.compose([Validators.required, emailValidator])],
       'password': ['', Validators.required],
-      'confirmPassword': ['', Validators.required]
+      'confirmPassword': ['', Validators.required],
+      'profile': this.fb.group({
+        'firstname': null,
+        'lastname': null
+      }),
+      'settings': this.fb.group({
+        'isDeleted': null,
+        'registrationDate': new Date()
+      }),
+      'userroles': this.fb.group({
+        'crm': null,
+        'inkoop': null,
+        'verkoop': null,
+        'artikelen': null,
+        'financiel': null,
+        'werknemers': null,
+        'uren': null
+      })
     },{validator: matchingPasswords('password', 'confirmPassword')});
 
   }

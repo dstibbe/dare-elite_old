@@ -88,7 +88,16 @@ export class AuthService {
       settings: {
         isDeleted: false,
         isActive: false,
-        registrationDate: null
+        registrationDate: null,
+      },
+      userroles: {
+        crm: false,
+        inkoop: false,
+        verkoop: false,
+        artikelen: false,
+        financiel: false,
+        werknemers: false,
+        uren: false,
       }
     };
     return userRef.set(data);
