@@ -1,5 +1,6 @@
-export interface User {
+export class User {
   uid: string;
+  id?: string;
   email: string;
   settings?: Usersettings;
   profile?: Userprofile

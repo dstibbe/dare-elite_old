@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { User, Userprofile, Usersettings } from '../user.model';
+import { FormGroup, FormBuilder} from '@angular/forms';
+import { User, Userprofile, Usersettings } from 'src/app/authentication/models/user.model';
 
 @Component({
   selector: 'dare-user-dialog',
@@ -15,15 +15,12 @@ export class UserDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public user: User,
               public fb: FormBuilder) {
     this.form = this.fb.group({
-      id: null,
-      username: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],       
+      id: null,    
       profile: this.fb.group({
         firstname: null,
         lastname: null
       }),
       settings: this.fb.group({
-        isActive: null,
         isDeleted: null,
         registrationDate: null
       })

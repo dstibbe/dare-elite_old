@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
-import { User } from './user.model';
 import { UsersService } from './users.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { User } from 'src/app/authentication/models/user.model';
 
 @Component({
   selector: 'dare-users',
@@ -22,7 +22,6 @@ export class UsersComponent implements OnInit {
     constructor(public appSettings:AppSettings, public dialog: MatDialog, public usersService: UsersService){
 
         this.settings = this.appSettings.settings; 
-
     }
 
     ngOnInit() {
@@ -38,7 +37,9 @@ export class UsersComponent implements OnInit {
                     ...item.payload.doc.data()
                 } as User;
             })
+            console.log(this.users)
         });  
+    
     }
 
 
@@ -60,7 +61,7 @@ export class UsersComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(user => {
             if(user){
-              //  (user.id) ? this.updateUser(user) : this.addUser(user);
+            //    (user.uid) ? this.updateUser(user) : this.addUser(user);
             }
         });
     }
