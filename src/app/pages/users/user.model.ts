@@ -2,16 +2,16 @@ export class User {
   id: string;
   username: string;
   password: string;  
-  profile: UserProfile;
-  settings: UserSettings;
+  profile?: Userprofile;
+  settings?: Usersettings;
 }
 
-export class UserProfile {  
+export class Userprofile {  
   firstname: string;
   lastname: string;  
 }
 
-export class UserSettings{
+export class Usersettings{
   isActive: boolean;
   isDeleted: boolean;
   registrationDate: Date;

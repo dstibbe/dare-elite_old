@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { User, UserProfile, UserSettings } from '../user.model';
+import { User, Userprofile, Usersettings } from '../user.model';
 
 @Component({
   selector: 'dare-user-dialog',
@@ -36,8 +36,8 @@ export class UserDialogComponent implements OnInit {
     } 
     else{
       this.user = new User();
-      this.user.profile = new UserProfile();
-      this.user.settings = new UserSettings();
+      this.user.profile = new Userprofile();
+      this.user.settings = new Usersettings();
     } 
   }
 

@@ -81,13 +81,17 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      firstname: user.firstname || null,
-      lastname: user.lastname || null,
-      crm: user.crm || false,
-      inkoop: user.inkoop || false,
-      verkoop: user.verkoop || false,
-      isDeleted: user.isDeleted || false
+      profile: {
+        firstname: null,
+        lastname: null,
+      },
+      settings: {
+        isDeleted: false,
+        isActive: false,
+        registrationDate: null
+      }
     };
     return userRef.set(data);
   }
+
 }
