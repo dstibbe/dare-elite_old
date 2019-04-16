@@ -53,7 +53,7 @@
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">more_horiz</mat-icon>
-                            <span>crm: {{ (user.userroles.crm) ? 'yes' : 'no' }}</span>
+                            <span>{{ (user.userroles.crm) ? 'can use crm module' : 'cannot use crm module' }}</span>
                         </p>
                     </div>
                 </div>
