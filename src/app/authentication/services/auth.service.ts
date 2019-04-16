@@ -40,9 +40,8 @@ export class AuthService {
 
   async emailLogin(email: string, password: string) {
     try {
-      const credential = await this.afAuth.auth
-        .signInWithEmailAndPassword(email, password);
-      return this.updateUserData(credential.user);
+      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      return 
     }
     catch (error) {
       return this.handleError(error);
